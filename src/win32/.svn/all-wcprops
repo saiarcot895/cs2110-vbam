@@ -1,0 +1,911 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svnroot/vbam/!svn/ver/1197/trunk/src/win32
+END
+stdafx.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/stdafx.h
+END
+MemoryViewer.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MemoryViewer.h
+END
+GBMemoryViewerDlg.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBMemoryViewerDlg.h
+END
+MemoryViewerAddressSize.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MemoryViewerAddressSize.h
+END
+Direct3D.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Direct3D.cpp
+END
+GameOverrides.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/1086/trunk/src/win32/GameOverrides.h
+END
+OALConfig.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/OALConfig.cpp
+END
+GBPaletteView.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBPaletteView.cpp
+END
+Input.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Input.h
+END
+GBTileView.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBTileView.h
+END
+LinkOptions.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/1117/trunk/src/win32/LinkOptions.cpp
+END
+ColorButton.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ColorButton.cpp
+END
+Directories.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Directories.cpp
+END
+MapView.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MapView.h
+END
+BugReport.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1086/trunk/src/win32/BugReport.h
+END
+Associate.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1062/trunk/src/win32/Associate.h
+END
+LangSelect.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/LangSelect.cpp
+END
+MemoryViewerDlg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MemoryViewerDlg.cpp
+END
+ColorControl.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ColorControl.h
+END
+AVIWrite.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AVIWrite.cpp
+END
+MemoryViewerAddressSize.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MemoryViewerAddressSize.cpp
+END
+PaletteView.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/PaletteView.h
+END
+rpi.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/vbam/!svn/ver/1071/trunk/src/win32/rpi.h
+END
+XAudio2_Config.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/XAudio2_Config.cpp
+END
+GBPaletteView.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBPaletteView.h
+END
+Display.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Display.h
+END
+Associate.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/1062/trunk/src/win32/Associate.cpp
+END
+MainWndTools.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MainWndTools.cpp
+END
+OpenAL.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/OpenAL.cpp
+END
+ColorControl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ColorControl.cpp
+END
+ColorButton.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ColorButton.h
+END
+LoadOAL.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/LoadOAL.h
+END
+BIOSDialog.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/BIOSDialog.h
+END
+CmdAccelOb.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/CmdAccelOb.h
+END
+GBMapView.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBMapView.cpp
+END
+GBACheats.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBACheats.h
+END
+DirectInput.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/DirectInput.cpp
+END
+MaxScale.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MaxScale.cpp
+END
+SelectPlugin.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/SelectPlugin.cpp
+END
+AVIWrite.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AVIWrite.h
+END
+ExportGSASnapshot.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ExportGSASnapshot.h
+END
+Throttle.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Throttle.cpp
+END
+FileDlg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/FileDlg.cpp
+END
+targetver.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/targetver.h
+END
+MainWndOptions.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/1071/trunk/src/win32/MainWndOptions.cpp
+END
+Hyperlink.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Hyperlink.h
+END
+WinResUtil.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/WinResUtil.h
+END
+LoadOAL.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/LoadOAL.cpp
+END
+Reg.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Reg.h
+END
+AudioCoreSettingsDlg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AudioCoreSettingsDlg.cpp
+END
+GBOamView.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBOamView.h
+END
+MainWndCheats.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MainWndCheats.cpp
+END
+ResizeDlg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ResizeDlg.cpp
+END
+IOViewer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/IOViewer.cpp
+END
+PaletteViewControl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/PaletteViewControl.cpp
+END
+GameOverrides.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GameOverrides.cpp
+END
+TileView.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/TileView.h
+END
+IUpdate.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/IUpdate.h
+END
+StringTokenizer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/StringTokenizer.cpp
+END
+MainWnd.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MainWnd.h
+END
+SelectPlugin.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/SelectPlugin.h
+END
+GSACodeSelect.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GSACodeSelect.cpp
+END
+OALConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/OALConfig.h
+END
+MapView.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1111/trunk/src/win32/MapView.cpp
+END
+RomInfo.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/RomInfo.cpp
+END
+FileDlg.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/FileDlg.h
+END
+VBA.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/VBA.h
+END
+BitmapControl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/BitmapControl.cpp
+END
+LinkOptions.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/LinkOptions.h
+END
+IOViewerRegs.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/IOViewerRegs.h
+END
+DirectSound.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/DirectSound.cpp
+END
+ZoomControl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ZoomControl.cpp
+END
+Logging.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Logging.cpp
+END
+MemoryViewerDlg.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MemoryViewerDlg.h
+END
+LangSelect.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/LangSelect.h
+END
+AudioCoreSettingsDlg.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AudioCoreSettingsDlg.h
+END
+MainWndFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MainWndFile.cpp
+END
+RewindInterval.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/RewindInterval.cpp
+END
+PaletteViewControl.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/PaletteViewControl.h
+END
+gzglfont.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/gzglfont.h
+END
+Disassemble.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Disassemble.h
+END
+KeyboardEdit.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/KeyboardEdit.cpp
+END
+GBDisassemble.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBDisassemble.h
+END
+GBCheatsDlg.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBCheatsDlg.h
+END
+BIOSDialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/1131/trunk/src/win32/BIOSDialog.cpp
+END
+CmdAccelOb.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/CmdAccelOb.cpp
+END
+GDBConnection.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GDBConnection.h
+END
+AcceleratorManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AcceleratorManager.h
+END
+GBMapView.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBMapView.h
+END
+stdafx.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/stdafx.cpp
+END
+WavWriter.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/WavWriter.cpp
+END
+AboutDialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AboutDialog.cpp
+END
+Disassemble.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Disassemble.cpp
+END
+Logging.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Logging.h
+END
+ExportGSASnapshot.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ExportGSASnapshot.cpp
+END
+resource.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/1062/trunk/src/win32/resource.h
+END
+GBTileView.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBTileView.cpp
+END
+WinHelper.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/WinHelper.h
+END
+MaxScale.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MaxScale.h
+END
+GBCheatsDlg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBCheatsDlg.cpp
+END
+BugReport.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/1086/trunk/src/win32/BugReport.cpp
+END
+Throttle.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Throttle.h
+END
+KeyboardEdit.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/KeyboardEdit.h
+END
+AcceleratorManager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AcceleratorManager.cpp
+END
+GBOamView.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/1111/trunk/src/win32/GBOamView.cpp
+END
+Directories.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Directories.h
+END
+TileView.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/TileView.cpp
+END
+PaletteView.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/PaletteView.cpp
+END
+glfont.c
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/glfont.c
+END
+IOViewer.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/IOViewer.h
+END
+glfont.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/glfont.h
+END
+WavWriter.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/WavWriter.h
+END
+AboutDialog.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AboutDialog.h
+END
+Commands.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Commands.cpp
+END
+XAudio2_Config.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/XAudio2_Config.h
+END
+StringTokenizer.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/StringTokenizer.h
+END
+MainWndHelp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MainWndHelp.cpp
+END
+VBA.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/vbam/!svn/ver/1107/trunk/src/win32/VBA.cpp
+END
+GSACodeSelect.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GSACodeSelect.h
+END
+OamView.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/OamView.h
+END
+GBColorDlg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBColorDlg.cpp
+END
+RomInfo.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/RomInfo.h
+END
+AccelEditor.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AccelEditor.cpp
+END
+GBACheats.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBACheats.cpp
+END
+BitmapControl.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/BitmapControl.h
+END
+Joypad.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Joypad.cpp
+END
+GBPrinterDlg.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBPrinterDlg.h
+END
+FullscreenSettings.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/FullscreenSettings.h
+END
+MemoryViewer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MemoryViewer.cpp
+END
+GBMemoryViewerDlg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBMemoryViewerDlg.cpp
+END
+ZoomControl.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ZoomControl.h
+END
+JoybusOptions.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/JoybusOptions.h
+END
+RewindInterval.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/RewindInterval.h
+END
+GBDisassemble.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBDisassemble.cpp
+END
+WinResUtil.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/WinResUtil.cpp
+END
+Hyperlink.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Hyperlink.cpp
+END
+OamView.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/OamView.cpp
+END
+XAudio2.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1149/trunk/src/win32/XAudio2.cpp
+END
+GDBConnection.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GDBConnection.cpp
+END
+Reg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/vbam/!svn/ver/1066/trunk/src/win32/Reg.cpp
+END
+GBPrinterDlg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/1017/trunk/src/win32/GBPrinterDlg.cpp
+END
+GBColorDlg.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/GBColorDlg.h
+END
+FullscreenSettings.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/FullscreenSettings.cpp
+END
+AccelEditor.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/AccelEditor.h
+END
+OpenGL.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/OpenGL.cpp
+END
+JoybusOptions.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vbam/!svn/ver/1071/trunk/src/win32/JoybusOptions.cpp
+END
+VBA.rc
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/vbam/!svn/ver/1189/trunk/src/win32/VBA.rc
+END
+rpi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/vbam/!svn/ver/1188/trunk/src/win32/rpi.cpp
+END
+Joypad.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/Joypad.h
+END
+ResizeDlg.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/ResizeDlg.h
+END
+MainWnd.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/975/trunk/src/win32/MainWnd.cpp
+END

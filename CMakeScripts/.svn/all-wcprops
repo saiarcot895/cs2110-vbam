@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svnroot/vbam/!svn/ver/1049/trunk/CMakeScripts
+END
+FindSFML.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/989/trunk/CMakeScripts/FindSFML.cmake
+END
+FindDirectX.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vbam/!svn/ver/1049/trunk/CMakeScripts/FindDirectX.cmake
+END
+CMakeASM_NASMInformation.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/vbam/!svn/ver/989/trunk/CMakeScripts/CMakeASM_NASMInformation.cmake
+END
+FindGettext.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vbam/!svn/ver/1036/trunk/CMakeScripts/FindGettext.cmake
+END
+CMakeDetermineASM_NASMCompiler.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vbam/!svn/ver/989/trunk/CMakeScripts/CMakeDetermineASM_NASMCompiler.cmake
+END
+CMakeTestASM_NASMCompiler.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vbam/!svn/ver/989/trunk/CMakeScripts/CMakeTestASM_NASMCompiler.cmake
+END

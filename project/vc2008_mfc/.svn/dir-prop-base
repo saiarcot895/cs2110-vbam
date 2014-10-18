@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 29
+*.ncb
+*.suo
+*.user
+Win32
+x64
+
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/vbam/!svn/ver/975/trunk/src/filters/hq/c
+END
+hq_shared.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vbam/!svn/ver/975/trunk/src/filters/hq/c/hq_shared.h
+END
+hq3x_pattern.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vbam/!svn/ver/975/trunk/src/filters/hq/c/hq3x_pattern.h
+END
+hq4x_pattern.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vbam/!svn/ver/975/trunk/src/filters/hq/c/hq4x_pattern.h
+END
+hq_base.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/975/trunk/src/filters/hq/c/hq_base.h
+END
+hq_implementation.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vbam/!svn/ver/975/trunk/src/filters/hq/c/hq_implementation.cpp
+END

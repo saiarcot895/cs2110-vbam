@@ -1,0 +1,251 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svnroot/vbam/!svn/ver/1156/trunk/src/gtk
+END
+joypadconfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/joypadconfig.h
+END
+soundconfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/soundconfig.h
+END
+main.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/main.cpp
+END
+cheatlist.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/cheatlist.h
+END
+gameboycheatlist.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/gameboycheatlist.h
+END
+displayconfig.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/displayconfig.cpp
+END
+cheatedit.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/cheatedit.h
+END
+screenarea-opengl.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/screenarea-opengl.h
+END
+gameboyadvanceconfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/gameboyadvanceconfig.h
+END
+directoriesconfig.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/1156/trunk/src/gtk/directoriesconfig.cpp
+END
+generalconfig.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/generalconfig.cpp
+END
+tools.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/tools.h
+END
+screenarea-cairo.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/screenarea-cairo.h
+END
+gameboyconfig.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/1154/trunk/src/gtk/gameboyconfig.cpp
+END
+configfile.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/configfile.h
+END
+intl.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/intl.h
+END
+gameboyadvancecheatlist.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/gameboyadvancecheatlist.h
+END
+joypadconfig.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vbam/!svn/ver/1146/trunk/src/gtk/joypadconfig.cpp
+END
+window.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/vbam/!svn/ver/1156/trunk/src/gtk/window.h
+END
+filters.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/filters.h
+END
+screenarea.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/screenarea.h
+END
+soundconfig.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/soundconfig.cpp
+END
+cheatlist.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/cheatlist.cpp
+END
+gvbam.desktop
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1155/trunk/src/gtk/gvbam.desktop
+END
+gameboycheatlist.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/gameboycheatlist.cpp
+END
+system.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/system.cpp
+END
+screenarea-opengl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/screenarea-opengl.cpp
+END
+cheatedit.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/cheatedit.cpp
+END
+gameboyadvanceconfig.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/gameboyadvanceconfig.cpp
+END
+displayconfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/displayconfig.h
+END
+tools.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/tools.cpp
+END
+screenarea-cairo.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/screenarea-cairo.cpp
+END
+configfile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/configfile.cpp
+END
+gameboyadvancecheatlist.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/gameboyadvancecheatlist.cpp
+END
+directoriesconfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vbam/!svn/ver/1156/trunk/src/gtk/directoriesconfig.h
+END
+window.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/1156/trunk/src/gtk/window.cpp
+END
+windowcallbacks.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vbam/!svn/ver/1156/trunk/src/gtk/windowcallbacks.cpp
+END
+screenarea.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/screenarea.cpp
+END
+filters.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/filters.cpp
+END
+generalconfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/generalconfig.h
+END
+gameboyconfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/1086/trunk/src/gtk/gameboyconfig.h
+END

@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 45
+*.cmake
+Makefile
+CMakeFiles
+wx-xrc-strings.h
+
+END

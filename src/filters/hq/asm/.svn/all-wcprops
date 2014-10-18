@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/1034/trunk/src/filters/hq/asm
+END
+macros.mac
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/833/trunk/src/filters/hq/asm/macros.mac
+END
+hq3x_32.asm
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/833/trunk/src/filters/hq/asm/hq3x_32.asm
+END
+hq4x_32.asm
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/833/trunk/src/filters/hq/asm/hq4x_32.asm
+END
+hq3x_16.asm
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/833/trunk/src/filters/hq/asm/hq3x_16.asm
+END
+hq3x32.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/1034/trunk/src/filters/hq/asm/hq3x32.cpp
+END
+hq4x_16.asm
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/833/trunk/src/filters/hq/asm/hq4x_16.asm
+END

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svnroot/vbam/!svn/ver/1071/trunk/src/gtk/ui
+END
+gameboy.ui
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1071/trunk/src/gtk/ui/gameboy.ui
+END
+display.ui
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vbam/!svn/ver/1071/trunk/src/gtk/ui/display.ui
+END
+gameboyadvance.ui
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/1071/trunk/src/gtk/ui/gameboyadvance.ui
+END
+vbam.ui
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/1071/trunk/src/gtk/ui/vbam.ui
+END
+sound.ui
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vbam/!svn/ver/1071/trunk/src/gtk/ui/sound.ui
+END
+cheatedit.ui
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/1071/trunk/src/gtk/ui/cheatedit.ui
+END
+cheatlist.ui
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vbam/!svn/ver/1071/trunk/src/gtk/ui/cheatlist.ui
+END
+preferences.ui
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/1071/trunk/src/gtk/ui/preferences.ui
+END

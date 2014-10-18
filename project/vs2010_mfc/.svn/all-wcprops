@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vbam/!svn/ver/1197/trunk/project/vs2010_mfc
+END
+VBA2010.vcxproj.filters
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vbam/!svn/ver/957/trunk/project/vs2010_mfc/VBA2010.vcxproj.filters
+END
+nasm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/950/trunk/project/vs2010_mfc/nasm.xml
+END
+nasm.props
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vbam/!svn/ver/1170/trunk/project/vs2010_mfc/nasm.props
+END
+VBA2010.vcxproj.user
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vbam/!svn/ver/950/trunk/project/vs2010_mfc/VBA2010.vcxproj.user
+END
+VBA2010.vcxproj
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vbam/!svn/ver/1181/trunk/project/vs2010_mfc/VBA2010.vcxproj
+END
+VBA2010.sln
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vbam/!svn/ver/1071/trunk/project/vs2010_mfc/VBA2010.sln
+END
+nasm.targets
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vbam/!svn/ver/950/trunk/project/vs2010_mfc/nasm.targets
+END
+per_user_settings.props
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vbam/!svn/ver/950/trunk/project/vs2010_mfc/per_user_settings.props
+END
+nasm.rules
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vbam/!svn/ver/950/trunk/project/vs2010_mfc/nasm.rules
+END

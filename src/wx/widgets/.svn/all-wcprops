@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/vbam/!svn/ver/1049/trunk/src/wx/widgets
+END
+keyedit.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/1049/trunk/src/wx/widgets/keyedit.cpp
+END
+sdljoy.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/1049/trunk/src/wx/widgets/sdljoy.cpp
+END
+checkedlistctrl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vbam/!svn/ver/1049/trunk/src/wx/widgets/checkedlistctrl.cpp
+END
+joyedit.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vbam/!svn/ver/1049/trunk/src/wx/widgets/joyedit.cpp
+END
+wxmisc.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vbam/!svn/ver/1049/trunk/src/wx/widgets/wxmisc.cpp
+END

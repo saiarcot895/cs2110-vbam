@@ -1,0 +1,17 @@
+K 10
+svn:ignore
+V 115
+*.sdf
+ipch
+Release
+VBA2010.suo
+Win32
+*.opensdf
+Debug
+AccelEditor.i
+FileDlg.i
+GBColorDlg.i
+KeyboardEdit.i
+RomInfo.i
+
+END
