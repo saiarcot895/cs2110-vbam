@@ -38,7 +38,7 @@ int main(int argc, char * argv[])
   textdomain("gvbam");
 #endif // ENABLE_NLS
 
-  Glib::set_application_name(_("VBA-M (BBA)"));
+  Glib::set_application_name(_("VBA-M"));
 
   Gtk::Main oKit(argc, argv);
 
@@ -78,7 +78,7 @@ int main(int argc, char * argv[])
 
   if (bShowVersion)
   {
-    g_print(_("VisualBoyAdvance (BBA)\n"));
+    g_print(_("VisualBoyAdvance version %s [GTK+]\n"), VERSION);
     exit(0);
   }
 

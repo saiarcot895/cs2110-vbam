@@ -504,7 +504,7 @@ void Window::vOnHelpAbout()
 
   oAboutDialog.set_transient_for(*this);
 
-  oAboutDialog.set_name(_("VBA-M (BBA)"));
+  oAboutDialog.set_name(_("VBA-M"));
   oAboutDialog.set_version(VERSION);
   oAboutDialog.set_comments(_("Nintendo GameBoy Advance emulator."));
   oAboutDialog.set_license(csGPLHeader);
@@ -515,7 +515,6 @@ void Window::vOnHelpAbout()
 
   std::list<Glib::ustring> list_authors;
   list_authors.push_back("Forgotten");
-  list_authors.push_back("Brandon Whitehead");
   list_authors.push_back("kxu");
   list_authors.push_back("Pokemonhacker");
   list_authors.push_back("Spacy51");

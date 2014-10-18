@@ -9,8 +9,6 @@
 #include "GBAcpu.h"
 #include "GBALink.h"
 
-#include <stdio.h>
-
 extern const u32 objTilesAddress[3];
 
 extern bool stopState;
@@ -21,6 +19,7 @@ extern bool cpuSramEnabled;
 extern bool cpuFlashEnabled;
 extern bool cpuEEPROMEnabled;
 extern bool cpuEEPROMSensorEnabled;
+extern bool cpuDmaHack;
 extern u32 cpuDmaLast;
 extern bool timer0On;
 extern int timer0Ticks;
@@ -132,6 +131,9 @@ unreadable:
         armNextPC - 4 : armNextPC - 2);
     }
 #endif
+	if(cpuDmaHack) {
+		value = cpuDmaLast;
+	} else {
     if(armState) {
 		return CPUReadMemoryQuick(reg[15].I);
     } else {
@@ -224,6 +226,10 @@ static inline u32 CPUReadHalfWord(u32 address)
                 value = 0xFFFF - ((timer3Ticks-cpuTotalTicks) >> timer3ClockReload);
       }
     }
+	else if((address < 0x4000400) && ioReadable[address & 0x3fc])
+	{
+		value = 0;
+	}
     else goto unreadable;
     break;
   case 5:
@@ -265,18 +271,22 @@ static inline u32 CPUReadHalfWord(u32 address)
     // default
   default:
 unreadable:
+	if(cpuDmaHack) {
+		value = cpuDmaLast & 0xFFFF;
+	} else {
+		if(armState) {
+			value = CPUReadMemoryQuick(reg[15].I);
+		} else {
+			value = CPUReadHalfWordQuick(reg[15].I) |
+				CPUReadHalfWordQuick(reg[15].I) << 16;
+		}
+	}
 #ifdef GBA_LOGGING
-    if(systemVerbose & VERBOSE_ILLEGAL_READ) {
-      log("Illegal halfword read: %08x at %08x\n", oldAddress, armMode ?
-        armNextPC - 4 : armNextPC - 2);
+	if(systemVerbose & VERBOSE_ILLEGAL_READ) {
+		log("Illegal halfword read: %08x at %08x (%08x)\n", oldAddress, reg[15].I, value);
     }
 #endif
-	if(armState) {
-		return CPUReadMemoryQuick(reg[15].I);
-	} else {
-		return CPUReadHalfWordQuick(reg[15].I) |
-			   CPUReadHalfWordQuick(reg[15].I) << 16;
-	}
+	return value;
   }
 
   if(oldAddress & 1) {
@@ -381,6 +391,9 @@ unreadable:
         armNextPC - 4 : armNextPC - 2);
     }
 #endif
+	if(cpuDmaHack) {
+		return cpuDmaLast & 0xFF;
+	} else {
 	if(armState) {
 		return CPUReadMemoryQuick(reg[15].I);
 	} else {
@@ -392,6 +405,7 @@ unreadable:
 
 static inline void CPUWriteMemory(u32 address, u32 value)
 {
+
 #ifdef GBA_LOGGING
   if(address & 3) {
     if(systemVerbose & VERBOSE_UNALIGNED_MEMORY) {
@@ -428,12 +442,7 @@ static inline void CPUWriteMemory(u32 address, u32 value)
     if(address < 0x4000400) {
       CPUUpdateRegister((address & 0x3FC), value & 0xFFFF);
       CPUUpdateRegister((address & 0x3FC) + 2, (value >> 16));
-    } else if (address == 0x4000400) { // LOLHACKS
-        if (memcmp("DEBU", &internalRAM[value & 0x3FFFC], 4) == 0)
-	      printf("%s", (char*)&internalRAM[(value & 0x3FFFC) + 4]);
-        //else goto unwritable;
-    }
-    else goto unwritable;
+    } else goto unwritable;
     break;
   case 0x05:
 #ifdef BKPT_SUPPORT

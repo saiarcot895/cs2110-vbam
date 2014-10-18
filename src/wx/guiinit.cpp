@@ -2075,7 +2075,7 @@ bool MainFrame::InitMore(void)
     SetIcon(icon);
 
     // NOOP if no status area
-    SetStatusText(_("Welcome to BBA!"));
+    SetStatusText(_("Welcome to wxVBAM!"));
 
     // Prepare system accel table
     for(int i = 0; i < num_def_accels; i++)

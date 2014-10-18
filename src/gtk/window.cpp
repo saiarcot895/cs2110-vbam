@@ -1154,7 +1154,7 @@ void Window::vDrawDefaultScreen()
 
 void Window::vSetDefaultTitle()
 {
-  set_title("VBA-M (BBA)");
+  set_title("VBA-M");
 }
 
 void Window::vShowSpeed(int _iSpeed)
@@ -1163,12 +1163,12 @@ void Window::vShowSpeed(int _iSpeed)
 
   if (m_eShowSpeed == ShowPercentage)
   {
-    snprintf(csTitle, 50, _("VBA-M - (BBA) - %d%%"), _iSpeed);
+    snprintf(csTitle, 50, _("VBA-M - %d%%"), _iSpeed);
     set_title(csTitle);
   }
   else if (m_eShowSpeed == ShowDetailed)
   {
-    snprintf(csTitle, 50, _("VBA-M - (BBA) - %d%% (%d, %d fps)"),
+    snprintf(csTitle, 50, _("VBA-M - %d%% (%d, %d fps)"),
              _iSpeed, systemFrameSkip, m_iFrameCount);
     set_title(csTitle);
   }

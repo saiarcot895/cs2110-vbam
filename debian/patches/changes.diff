@@ -1,0 +1,466 @@
+diff -w -Nur vbam-code-1203-trunk/src/common/ffmpeg.cpp cs2110-vbam/src/common/ffmpeg.cpp
+--- vbam-code-1203-trunk/src/common/ffmpeg.cpp	2013-06-17 00:05:37.000000000 -0400
++++ cs2110-vbam/src/common/ffmpeg.cpp	2014-10-18 07:55:08.386311902 -0400
+@@ -93,11 +93,7 @@
+ 	return MRET_OK;
+ 
+     AVCodecContext *ctx;
+-#if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53,10,0)
+     aud_st = av_new_stream(oc, 1);
+-#else
+-    aud_st = avformat_new_stream(oc, NULL);
+-#endif
+     if(!aud_st) {
+ 	avformat_free_context(oc);
+ 	oc = NULL;
+@@ -116,11 +112,7 @@
+ 	ctx->flags |= CODEC_FLAG_GLOBAL_HEADER;
+ 
+     AVCodec *codec = avcodec_find_encoder(fmt->audio_codec);
+-#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53,6,0)
+     if(!codec || avcodec_open(ctx, codec)) {
+-#else
+-    if(!codec || avcodec_open2(ctx, codec, NULL)) {
+-#endif
+ 	avformat_free_context(oc);
+ 	oc = NULL;
+ 	return MRET_ERR_NOCODEC;
+@@ -132,11 +124,7 @@
+ MediaRet MediaRecorder::setup_video_stream(const char *fname, int w, int h, int d)
+ {
+     AVCodecContext *ctx;
+-#if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53,10,0)
+     vid_st = av_new_stream(oc, 0);
+-#else
+-    vid_st = avformat_new_stream(oc, NULL);
+-#endif
+     if(!vid_st) {
+ 	avformat_free_context(oc);
+ 	oc = NULL;
+@@ -215,11 +203,7 @@
+ 	    ctx->pix_fmt = dp;
+ 	}
+     }
+-#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53,6,0)
+     if(!codec || avcodec_open(ctx, codec)) {
+-#else
+-    if(!codec || avcodec_open2(ctx, codec, NULL)) {
+-#endif
+ 	avformat_free_context(oc);
+ 	oc = NULL;
+ 	return MRET_ERR_NOCODEC;
+diff -w -Nur vbam-code-1203-trunk/src/gba/GBA.cpp cs2110-vbam/src/gba/GBA.cpp
+--- vbam-code-1203-trunk/src/gba/GBA.cpp	2013-09-16 14:44:46.000000000 -0400
++++ cs2110-vbam/src/gba/GBA.cpp	2014-10-18 07:55:08.458314563 -0400
+@@ -42,7 +42,6 @@
+ u32 busPrefetchCount = 0;
+ int cpuDmaTicksToUpdate = 0;
+ int cpuDmaCount = 0;
+-bool cpuDmaHack = false;
+ u32 cpuDmaLast = 0;
+ int dummyAddress = 0;
+ 
+@@ -120,9 +119,6 @@
+ int capturePrevious = 0;
+ int captureNumber = 0;
+ 
+-int armOpcodeCount = 0;
+-int thumbOpcodeCount = 0;
+-
+ const int TIMER_TICKS[4] = {
+   0,
+   6,
+@@ -2076,7 +2072,6 @@
+   int dw = 0;
+   int sc = c;
+ 
+-  cpuDmaHack = true;
+   cpuDmaCount = c;
+   // This is done to get the correct waitstates.
+   if (sm>15)
+@@ -2145,7 +2140,7 @@
+   }
+ 
+   cpuDmaTicksToUpdate += totalTicks;
+-  cpuDmaHack = false;
++
+ }
+ 
+ void CPUCheckDMA(int reason, int dmamask)
+@@ -2381,7 +2376,6 @@
+       doDMA(dma3Source, dma3Dest, sourceIncrement, destIncrement,
+             DM3CNT_L ? DM3CNT_L : 0x10000,
+             DM3CNT_H & 0x0400);
+-
+       if(DM3CNT_H & 0x4000) {
+         IF |= 0x0800;
+         UPDATE_REG(0x202, IF);
+@@ -2428,7 +2422,7 @@
+       windowOn = (layerEnable & 0x6000) ? true : false;
+       if(change && !((value & 0x80))) {
+         if(!(DISPSTAT & 1)) {
+-          //lcdTicks = 1008;
++          lcdTicks = 1008;
+           //      VCOUNT = 0;
+           //      UPDATE_REG(0x06, VCOUNT);
+           DISPSTAT &= 0xFFFC;
+@@ -3406,8 +3400,6 @@
+ 
+   systemSaveUpdateCounter = SYSTEM_SAVE_NOT_UPDATED;
+ 
+-  cpuDmaHack = false;
+-
+   lastTime = systemGetClock();
+ 
+   SWITicks = 0;
+@@ -3481,11 +3473,9 @@
+ 
+     if(!holdState && !SWITicks) {
+       if(armState) {
+-		  armOpcodeCount++;
+         if (!armExecute())
+           return;
+       } else {
+-		  thumbOpcodeCount++;
+         if (!thumbExecute())
+           return;
+       }
+@@ -3541,7 +3531,7 @@
+             }
+           }
+ 
+-          if(VCOUNT > 227) { //Reaching last line
++          if(VCOUNT >= 228) { //Reaching last line
+             DISPSTAT &= 0xFFFC;
+             UPDATE_REG(0x04, DISPSTAT);
+             VCOUNT = 0;
+diff -w -Nur vbam-code-1203-trunk/src/gba/GBAinline.h cs2110-vbam/src/gba/GBAinline.h
+--- vbam-code-1203-trunk/src/gba/GBAinline.h	2013-09-14 04:00:19.000000000 -0400
++++ cs2110-vbam/src/gba/GBAinline.h	2014-10-18 07:55:08.462314711 -0400
+@@ -9,6 +9,8 @@
+ #include "GBAcpu.h"
+ #include "GBALink.h"
+ 
++#include <stdio.h>
++
+ extern const u32 objTilesAddress[3];
+ 
+ extern bool stopState;
+@@ -19,7 +21,6 @@
+ extern bool cpuFlashEnabled;
+ extern bool cpuEEPROMEnabled;
+ extern bool cpuEEPROMSensorEnabled;
+-extern bool cpuDmaHack;
+ extern u32 cpuDmaLast;
+ extern bool timer0On;
+ extern int timer0Ticks;
+@@ -131,9 +132,6 @@
+         armNextPC - 4 : armNextPC - 2);
+     }
+ #endif
+-	if(cpuDmaHack) {
+-		value = cpuDmaLast;
+-	} else {
+       if(armState) {
+ 		return CPUReadMemoryQuick(reg[15].I);
+       } else {
+@@ -141,7 +139,6 @@
+ 			   CPUReadHalfWordQuick(reg[15].I) << 16;
+       }
+ 	}
+-  }
+ 
+   if(oldAddress & 3) {
+ #ifdef C_CORE
+@@ -227,10 +224,6 @@
+                 value = 0xFFFF - ((timer3Ticks-cpuTotalTicks) >> timer3ClockReload);
+       }
+     }
+-	else if((address < 0x4000400) && ioReadable[address & 0x3fc])
+-	{
+-		value = 0;
+-	}
+     else goto unreadable;
+     break;
+   case 5:
+@@ -272,22 +265,18 @@
+     // default
+   default:
+ unreadable:
+-	if(cpuDmaHack) {
+-		value = cpuDmaLast & 0xFFFF;
+-	} else {
+-		if(armState) {
+-			value = CPUReadMemoryQuick(reg[15].I);
+-		} else {
+-			value = CPUReadHalfWordQuick(reg[15].I) |
+-				CPUReadHalfWordQuick(reg[15].I) << 16;
+-		}
+-	}
+ #ifdef GBA_LOGGING
+ 	if(systemVerbose & VERBOSE_ILLEGAL_READ) {
+-		log("Illegal halfword read: %08x at %08x (%08x)\n", oldAddress, reg[15].I, value);
++      log("Illegal halfword read: %08x at %08x\n", oldAddress, armMode ?
++        armNextPC - 4 : armNextPC - 2);
+ 	}
+ #endif
+-	return value;
++	if(armState) {
++		return CPUReadMemoryQuick(reg[15].I);
++	} else {
++		return CPUReadHalfWordQuick(reg[15].I) |
++			   CPUReadHalfWordQuick(reg[15].I) << 16;
++	}
+   }
+ 
+   if(oldAddress & 1) {
+@@ -392,9 +381,6 @@
+         armNextPC - 4 : armNextPC - 2);
+     }
+ #endif
+-	if(cpuDmaHack) {
+-		return cpuDmaLast & 0xFF;
+-	} else {
+ 		if(armState) {
+ 			return CPUReadMemoryQuick(reg[15].I);
+ 		} else {
+@@ -403,11 +389,9 @@
+ 		}
+ 	}
+   }
+-}
+ 
+ static inline void CPUWriteMemory(u32 address, u32 value)
+ {
+-
+ #ifdef GBA_LOGGING
+   if(address & 3) {
+     if(systemVerbose & VERBOSE_UNALIGNED_MEMORY) {
+@@ -444,7 +428,12 @@
+     if(address < 0x4000400) {
+       CPUUpdateRegister((address & 0x3FC), value & 0xFFFF);
+       CPUUpdateRegister((address & 0x3FC) + 2, (value >> 16));
+-    } else goto unwritable;
++    } else if (address == 0x4000400) { // LOLHACKS
++        if (memcmp("DEBU", &internalRAM[value & 0x3FFFC], 4) == 0)
++	      printf("%s", (char*)&internalRAM[(value & 0x3FFFC) + 4]);
++        //else goto unwritable;
++    }
++    else goto unwritable;
+     break;
+   case 0x05:
+ #ifdef BKPT_SUPPORT
+diff -w -Nur vbam-code-1203-trunk/src/gba/Globals.h cs2110-vbam/src/gba/Globals.h
+--- vbam-code-1203-trunk/src/gba/Globals.h	2011-02-19 16:33:53.000000000 -0500
++++ cs2110-vbam/src/gba/Globals.h	2014-10-18 07:55:08.462314711 -0400
+@@ -15,6 +15,7 @@
+ #define VERBOSE_UNDEFINED          256
+ #define VERBOSE_AGBPRINT           512
+ #define VERBOSE_SOUNDOUTPUT       1024
++#define VERBOSE_GBAMESSAGES       2048
+ 
+ extern reg_pair reg[45];
+ extern bool ioReadable[0x400];
+diff -w -Nur vbam-code-1203-trunk/src/gtk/main.cpp cs2110-vbam/src/gtk/main.cpp
+--- vbam-code-1203-trunk/src/gtk/main.cpp	2012-01-23 03:49:39.000000000 -0500
++++ cs2110-vbam/src/gtk/main.cpp	2014-10-18 07:55:08.490315745 -0400
+@@ -38,7 +38,7 @@
+   textdomain("gvbam");
+ #endif // ENABLE_NLS
+ 
+-  Glib::set_application_name(_("VBA-M"));
++  Glib::set_application_name(_("VBA-M (BBA)"));
+ 
+   Gtk::Main oKit(argc, argv);
+ 
+@@ -78,7 +78,7 @@
+ 
+   if (bShowVersion)
+   {
+-    g_print(_("VisualBoyAdvance version %s [GTK+]\n"), VERSION);
++    g_print(_("VisualBoyAdvance (BBA)\n"));
+     exit(0);
+   }
+ 
+diff -w -Nur vbam-code-1203-trunk/src/gtk/windowcallbacks.cpp cs2110-vbam/src/gtk/windowcallbacks.cpp
+--- vbam-code-1203-trunk/src/gtk/windowcallbacks.cpp	2013-02-03 07:59:48.000000000 -0500
++++ cs2110-vbam/src/gtk/windowcallbacks.cpp	2014-10-18 07:55:08.502316189 -0400
+@@ -504,7 +504,7 @@
+ 
+   oAboutDialog.set_transient_for(*this);
+ 
+-  oAboutDialog.set_name(_("VBA-M"));
++  oAboutDialog.set_name(_("VBA-M (BBA)"));
+   oAboutDialog.set_version(VERSION);
+   oAboutDialog.set_comments(_("Nintendo GameBoy Advance emulator."));
+   oAboutDialog.set_license(csGPLHeader);
+@@ -515,6 +515,7 @@
+ 
+   std::list<Glib::ustring> list_authors;
+   list_authors.push_back("Forgotten");
++  list_authors.push_back("Brandon Whitehead");
+   list_authors.push_back("kxu");
+   list_authors.push_back("Pokemonhacker");
+   list_authors.push_back("Spacy51");
+diff -w -Nur vbam-code-1203-trunk/src/gtk/window.cpp cs2110-vbam/src/gtk/window.cpp
+--- vbam-code-1203-trunk/src/gtk/window.cpp	2013-02-03 07:59:48.000000000 -0500
++++ cs2110-vbam/src/gtk/window.cpp	2014-10-18 07:55:08.502316189 -0400
+@@ -1154,7 +1154,7 @@
+ 
+ void Window::vSetDefaultTitle()
+ {
+-  set_title("VBA-M");
++  set_title("VBA-M (BBA)");
+ }
+ 
+ void Window::vShowSpeed(int _iSpeed)
+@@ -1163,12 +1163,12 @@
+ 
+   if (m_eShowSpeed == ShowPercentage)
+   {
+-    snprintf(csTitle, 50, _("VBA-M - %d%%"), _iSpeed);
++    snprintf(csTitle, 50, _("VBA-M - (BBA) - %d%%"), _iSpeed);
+     set_title(csTitle);
+   }
+   else if (m_eShowSpeed == ShowDetailed)
+   {
+-    snprintf(csTitle, 50, _("VBA-M - %d%% (%d, %d fps)"),
++    snprintf(csTitle, 50, _("VBA-M - (BBA) - %d%% (%d, %d fps)"),
+              _iSpeed, systemFrameSkip, m_iFrameCount);
+     set_title(csTitle);
+   }
+diff -w -Nur vbam-code-1203-trunk/src/gtk/window.h cs2110-vbam/src/gtk/window.h
+--- vbam-code-1203-trunk/src/gtk/window.h	2013-02-03 07:59:48.000000000 -0500
++++ cs2110-vbam/src/gtk/window.h	2014-10-18 07:55:08.502316189 -0400
+@@ -32,7 +32,11 @@
+ 
+ #include "configfile.h"
+ #include "screenarea.h"
++extern "C"
++{
++
+ #include "filters.h"
++}
+ 
+ namespace VBA
+ {
+diff -w -Nur vbam-code-1203-trunk/src/sdl/SDL.cpp cs2110-vbam/src/sdl/SDL.cpp
+--- vbam-code-1203-trunk/src/sdl/SDL.cpp	2012-11-19 23:04:57.000000000 -0500
++++ cs2110-vbam/src/sdl/SDL.cpp	2014-10-18 07:55:08.514316632 -0400
+@@ -1874,7 +1874,7 @@
+ 
+ int main(int argc, char **argv)
+ {
+-  fprintf(stdout, "VBA-M version %s [SDL]\n", VERSION);
++  fprintf(stdout, "VBA-M (BBA) [SDL]\n");
+ 
+   arg0 = argv[0];
+ 
+@@ -2322,7 +2322,7 @@
+ 
+   autoFrameSkipLastTime = throttleLastTime = systemGetClock();
+ 
+-  SDL_WM_SetCaption("VBA-M", NULL);
++  SDL_WM_SetCaption("VBA-M (BBA)", NULL);
+ 
+   // now we can enable cheats?
+   {
+@@ -2529,9 +2529,9 @@
+   if(!fullscreen && showSpeed) {
+     char buffer[80];
+     if(showSpeed == 1)
+-      sprintf(buffer, "VBA-M - %d%%", systemSpeed);
++      sprintf(buffer, "VBA-M (BBA) - %d%%", systemSpeed);
+     else
+-      sprintf(buffer, "VBA-M - %d%%(%d, %d fps)", systemSpeed,
++      sprintf(buffer, "VBA-M (BBA) - %d%%(%d, %d fps)", systemSpeed,
+               systemFrameSkip,
+               showRenderedFrames);
+ 
+diff -w -Nur vbam-code-1203-trunk/src/wx/cmdevents.cpp cs2110-vbam/src/wx/cmdevents.cpp
+--- vbam-code-1203-trunk/src/wx/cmdevents.cpp	2011-12-04 10:14:43.000000000 -0500
++++ cs2110-vbam/src/wx/cmdevents.cpp	2014-10-18 07:55:08.618320474 -0400
+@@ -2169,7 +2169,7 @@
+ EVT_HANDLER(wxID_ABOUT, "About...")
+ {
+     wxAboutDialogInfo ai;
+-    ai.SetName(wxT("VisualBoyAdvance-M"));
++    ai.SetName(wxT("VisualBoyAdvance-M (BBA)"));
+     ai.SetVersion(wxT(VERSION));
+     // setting website, icon, license uses custom aboutbox on win32 & macosx
+     // but at least win32 standard about is nothing special
+@@ -2189,6 +2189,7 @@
+ 		    "along with this program.  If not, see http://www.gnu.org/licenses ."));
+     // from gtk
+     ai.AddDeveloper(wxT("Forgotten"));
++    ai.AddDeveloper(wxT("Brandon Whitehead"));
+     ai.AddDeveloper(wxT("kxu"));
+     ai.AddDeveloper(wxT("Pokemonhacker"));
+     ai.AddDeveloper(wxT("Spacy51"));
+diff -w -Nur vbam-code-1203-trunk/src/wx/guiinit.cpp cs2110-vbam/src/wx/guiinit.cpp
+--- vbam-code-1203-trunk/src/wx/guiinit.cpp	2012-09-02 10:26:22.000000000 -0400
++++ cs2110-vbam/src/wx/guiinit.cpp	2014-10-18 07:55:08.618320474 -0400
+@@ -2075,7 +2075,7 @@
+     SetIcon(icon);
+ 
+     // NOOP if no status area
+-    SetStatusText(_("Welcome to wxVBAM!"));
++    SetStatusText(_("Welcome to BBA!"));
+ 
+     // Prepare system accel table
+     for(int i = 0; i < num_def_accels; i++)
+diff -w -Nur vbam-code-1203-trunk/src/wx/panel.cpp cs2110-vbam/src/wx/panel.cpp
+--- vbam-code-1203-trunk/src/wx/panel.cpp	2011-12-04 10:14:43.000000000 -0500
++++ cs2110-vbam/src/wx/panel.cpp	2014-10-18 07:55:08.622320622 -0400
+@@ -326,10 +326,10 @@
+ {
+     wxString tit;
+     if(loaded != IMAGE_UNKNOWN) {
+-	tit = wxT("VBA-M ");
++	tit = wxT("VisualBoyAdvance-M (BBA)");
+ 	tit.append(loaded_game.GetFullName());
+     } else
+-	tit = wxT("VisualBoyAdvance-M " VERSION);
++	tit = wxT("VisualBoyAdvance-M (BBA)");
+ #ifndef NO_LINK
+     if(vbaid > 0 || linkid > 0) {
+ 	tit.append(_(" player "));
+diff -w -Nur vbam-code-1203-trunk/src/wx/wxvbam.cpp cs2110-vbam/src/wx/wxvbam.cpp
+--- vbam-code-1203-trunk/src/wx/wxvbam.cpp	2011-12-04 10:14:43.000000000 -0500
++++ cs2110-vbam/src/wx/wxvbam.cpp	2014-10-18 07:55:08.630320918 -0400
+@@ -221,7 +221,7 @@
+ {
+     wxApp::OnInitCmdLine(cl);
+ 
+-    cl.SetLogo(wxT("VisualBoyAdvance-M " VERSION "\n"));
++    cl.SetLogo(wxT("VisualBoyAdvance-M \n"));
+ 
+     // 2.9 decided to change all of these from wxChar to char for some
+     // reason
+@@ -408,8 +408,8 @@
+     // requires DragAcceptFiles(true); even then may not do anything
+     EVT_DROP_FILES(MainFrame::OnDropFile)
+     // pause game if menu pops up
+-    EVT_MENU_OPEN(MainFrame::MenuPopped)
+-    EVT_MENU_CLOSE(MainFrame::MenuPopped)
++    //EVT_MENU_OPEN(MainFrame::MenuPopped)
++    //EVT_MENU_CLOSE(MainFrame::MenuPopped)
+ END_EVENT_TABLE()
+ 
+ void MainFrame::OnActivate(wxActivateEvent &event)
+diff -w -Nur vbam-code-1203-trunk/src/wx/wxvbam.desktop cs2110-vbam/src/wx/wxvbam.desktop
+--- vbam-code-1203-trunk/src/wx/wxvbam.desktop	2013-06-17 00:17:12.000000000 -0400
++++ cs2110-vbam/src/wx/wxvbam.desktop	2014-10-18 07:55:08.630320918 -0400
+@@ -1,9 +1,10 @@
+ [Desktop Entry]
+ Version=1.0
++Encoding=UTF-8
+ Type=Application
+ Name=VBA-M
+ GenericName=GameBoy Advance Emulator
+ Comment=Nindendo GameBoy Advance Emulator
+ Exec=wxvbam
+ Icon=vbam
+-Categories=Game;Emulator;
+\ No newline at end of file
++Categories=Application;Game;Emulator

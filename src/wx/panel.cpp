@@ -326,10 +326,10 @@ void GameArea::SetFrameTitle()
 {
     wxString tit;
     if(loaded != IMAGE_UNKNOWN) {
-	tit = wxT("VisualBoyAdvance-M (BBA)");
+	tit = wxT("VBA-M ");
 	tit.append(loaded_game.GetFullName());
     } else
-	tit = wxT("VisualBoyAdvance-M (BBA)");
+	tit = wxT("VisualBoyAdvance-M " VERSION);
 #ifndef NO_LINK
     if(vbaid > 0 || linkid > 0) {
 	tit.append(_(" player "));

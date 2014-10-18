@@ -42,6 +42,7 @@ bool busPrefetchEnable = false;
 u32 busPrefetchCount = 0;
 int cpuDmaTicksToUpdate = 0;
 int cpuDmaCount = 0;
+bool cpuDmaHack = false;
 u32 cpuDmaLast = 0;
 int dummyAddress = 0;
 
@@ -118,6 +119,9 @@ int count = 0;
 int capture = 0;
 int capturePrevious = 0;
 int captureNumber = 0;
+
+int armOpcodeCount = 0;
+int thumbOpcodeCount = 0;
 
 const int TIMER_TICKS[4] = {
   0,
@@ -2072,6 +2076,7 @@ void doDMA(u32 &s, u32 &d, u32 si, u32 di, u32 c, int transfer32)
   int dw = 0;
   int sc = c;
 
+  cpuDmaHack = true;
   cpuDmaCount = c;
   // This is done to get the correct waitstates.
   if (sm>15)
@@ -2140,7 +2145,7 @@ void doDMA(u32 &s, u32 &d, u32 si, u32 di, u32 c, int transfer32)
   }
 
   cpuDmaTicksToUpdate += totalTicks;
-
+  cpuDmaHack = false;
 }
 
 void CPUCheckDMA(int reason, int dmamask)
@@ -2376,6 +2381,7 @@ void CPUCheckDMA(int reason, int dmamask)
       doDMA(dma3Source, dma3Dest, sourceIncrement, destIncrement,
             DM3CNT_L ? DM3CNT_L : 0x10000,
             DM3CNT_H & 0x0400);
+
       if(DM3CNT_H & 0x4000) {
         IF |= 0x0800;
         UPDATE_REG(0x202, IF);
@@ -2422,7 +2428,7 @@ void CPUUpdateRegister(u32 address, u16 value)
       windowOn = (layerEnable & 0x6000) ? true : false;
       if(change && !((value & 0x80))) {
         if(!(DISPSTAT & 1)) {
-          lcdTicks = 1008;
+          //lcdTicks = 1008;
           //      VCOUNT = 0;
           //      UPDATE_REG(0x06, VCOUNT);
           DISPSTAT &= 0xFFFC;
@@ -3400,6 +3406,8 @@ void CPUReset()
 
   systemSaveUpdateCounter = SYSTEM_SAVE_NOT_UPDATED;
 
+  cpuDmaHack = false;
+
   lastTime = systemGetClock();
 
   SWITicks = 0;
@@ -3473,9 +3481,11 @@ void CPULoop(int ticks)
 
     if(!holdState && !SWITicks) {
       if(armState) {
+		  armOpcodeCount++;
         if (!armExecute())
           return;
       } else {
+		  thumbOpcodeCount++;
         if (!thumbExecute())
           return;
       }
@@ -3531,7 +3541,7 @@ void CPULoop(int ticks)
             }
           }
 
-          if(VCOUNT >= 228) { //Reaching last line
+          if(VCOUNT > 227) { //Reaching last line
             DISPSTAT &= 0xFFFC;
             UPDATE_REG(0x04, DISPSTAT);
             VCOUNT = 0;

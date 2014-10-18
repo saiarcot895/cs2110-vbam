@@ -32,11 +32,7 @@
 
 #include "configfile.h"
 #include "screenarea.h"
-extern "C"
-{
-
 #include "filters.h"
-}
 
 namespace VBA
 {

@@ -221,7 +221,7 @@ void wxvbamApp::OnInitCmdLine(wxCmdLineParser &cl)
 {
     wxApp::OnInitCmdLine(cl);
 
-    cl.SetLogo(wxT("VisualBoyAdvance-M \n"));
+    cl.SetLogo(wxT("VisualBoyAdvance-M " VERSION "\n"));
 
     // 2.9 decided to change all of these from wxChar to char for some
     // reason
@@ -408,8 +408,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     // requires DragAcceptFiles(true); even then may not do anything
     EVT_DROP_FILES(MainFrame::OnDropFile)
     // pause game if menu pops up
-    //EVT_MENU_OPEN(MainFrame::MenuPopped)
-    //EVT_MENU_CLOSE(MainFrame::MenuPopped)
+    EVT_MENU_OPEN(MainFrame::MenuPopped)
+    EVT_MENU_CLOSE(MainFrame::MenuPopped)
 END_EVENT_TABLE()
 
 void MainFrame::OnActivate(wxActivateEvent &event)

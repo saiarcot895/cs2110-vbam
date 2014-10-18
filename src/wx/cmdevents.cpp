@@ -2169,7 +2169,7 @@ EVT_HANDLER(FAQ, "VBA-M support forum")
 EVT_HANDLER(wxID_ABOUT, "About...")
 {
     wxAboutDialogInfo ai;
-    ai.SetName(wxT("VisualBoyAdvance-M (BBA)"));
+    ai.SetName(wxT("VisualBoyAdvance-M"));
     ai.SetVersion(wxT(VERSION));
     // setting website, icon, license uses custom aboutbox on win32 & macosx
     // but at least win32 standard about is nothing special
@@ -2189,7 +2189,6 @@ EVT_HANDLER(wxID_ABOUT, "About...")
 		    "along with this program.  If not, see http://www.gnu.org/licenses ."));
     // from gtk
     ai.AddDeveloper(wxT("Forgotten"));
-    ai.AddDeveloper(wxT("Brandon Whitehead"));
     ai.AddDeveloper(wxT("kxu"));
     ai.AddDeveloper(wxT("Pokemonhacker"));
     ai.AddDeveloper(wxT("Spacy51"));

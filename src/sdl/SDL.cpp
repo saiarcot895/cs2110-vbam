@@ -1874,7 +1874,7 @@ void handleRewinds()
 
 int main(int argc, char **argv)
 {
-  fprintf(stdout, "VBA-M (BBA) [SDL]\n");
+  fprintf(stdout, "VBA-M version %s [SDL]\n", VERSION);
 
   arg0 = argv[0];
 
@@ -2322,7 +2322,7 @@ int main(int argc, char **argv)
 
   autoFrameSkipLastTime = throttleLastTime = systemGetClock();
 
-  SDL_WM_SetCaption("VBA-M (BBA)", NULL);
+  SDL_WM_SetCaption("VBA-M", NULL);
 
   // now we can enable cheats?
   {
@@ -2529,9 +2529,9 @@ void systemShowSpeed(int speed)
   if(!fullscreen && showSpeed) {
     char buffer[80];
     if(showSpeed == 1)
-      sprintf(buffer, "VBA-M (BBA) - %d%%", systemSpeed);
+      sprintf(buffer, "VBA-M - %d%%", systemSpeed);
     else
-      sprintf(buffer, "VBA-M (BBA) - %d%%(%d, %d fps)", systemSpeed,
+      sprintf(buffer, "VBA-M - %d%%(%d, %d fps)", systemSpeed,
               systemFrameSkip,
               showRenderedFrames);
 
