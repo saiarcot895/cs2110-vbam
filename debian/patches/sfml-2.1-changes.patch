@@ -1,0 +1,467 @@
+Index: cs2110-vbam/src/gba/GBALink.cpp
+===================================================================
+--- cs2110-vbam.orig/src/gba/GBALink.cpp	2014-10-23 10:00:36.687242420 -0400
++++ cs2110-vbam/src/gba/GBALink.cpp	2014-10-23 10:26:32.843444085 -0400
+@@ -162,7 +162,7 @@
+ int linktime = 0;
+ 
+ GBASockClient* dol = NULL;
+-sf::IPAddress joybusHostAddr = sf::IPAddress::LocalHost;
++sf::IpAddress joybusHostAddr = sf::IpAddress::LocalHost;
+ 
+ // Hodgepodge
+ u8 tspeed = 3;
+@@ -1105,7 +1105,7 @@
+ 			char outbuffer[4];
+ 			outbuffer[0] = 4;
+ 			outbuffer[1] = -32;
+-			if(lanlink.type==0) lanlink.tcpsocket.Send(outbuffer, 4);
++			if(lanlink.type==0) lanlink.tcpsocket.send(outbuffer, 4);
+ 		} else {
+ 			char outbuffer[12];
+ 			int i;
+@@ -1113,9 +1113,9 @@
+ 			outbuffer[1] = -32;
+ 			for(i=1;i<=lanlink.numslaves;i++){
+ 				if(lanlink.type==0){
+-					ls.tcpsocket[i].Send(outbuffer, 12);
++					ls.tcpsocket[i].send(outbuffer, 12);
+ 				}
+-				ls.tcpsocket[i].Close();
++				ls.tcpsocket[i].disconnect();
+ 			}
+ 		}
+ 	}
+@@ -1187,7 +1187,7 @@
+ bool lserver::Init(ServerInfoDisplay *sid){
+ 	// too bad Listen() doesn't take an address as well
+ 	// then again, old code used INADDR_ANY anyway
+-	if(!lanlink.tcpsocket.Listen(IP_LINK_PORT))
++	if(!lanlink.tcpsocket.listen(IP_LINK_PORT))
+ 		// Note: old code closed socket & retried once on bind failure
+ 		return false; // FIXME: error code?
+ 
+@@ -1200,7 +1200,7 @@
+ 	linkid = 0;
+ 
+ 	// should probably use GetPublicAddress()
+-	sid->ShowServerIP(sf::IPAddress::GetLocalAddress());
++	sid->ShowServerIP(sf::IpAddress::GetLocalAddress());
+ 
+ 	lanlink.thread = new sf::Thread(LinkServerThread, sid);
+ 	lanlink.thread->Launch();
+@@ -1211,7 +1211,7 @@
+ 
+ void LinkServerThread(void *_sid){
+ 	ServerInfoDisplay *sid = (ServerInfoDisplay *)_sid;
+-	sf::Selector<sf::SocketTCP> fdset;
++	sf::SocketSelector fdset;
+ 	char inbuffer[256], outbuffer[256];
+ 	s32 *intinbuffer = (s32*)inbuffer;
+ 	u16 *u16inbuffer = (u16*)inbuffer;
+@@ -1221,24 +1221,24 @@
+ 	i = 0;
+ 
+ 	while(i<lanlink.numslaves){
+-		fdset.Clear();
+-		fdset.Add(lanlink.tcpsocket);
++		fdset.clear();
++		fdset.add(lanlink.tcpsocket);
+ 		if(lanlink.terminate){
+ 			ReleaseSemaphore(linksync[vbaid], 1, NULL);
+ 			goto CloseInfoDisplay;
+ 		}
+-		if(fdset.Wait(0.1)==1){
++		if(fdset.wait(sf::seconds(0.1))==1){
+ 			sf::Socket::Status st =
+-				lanlink.tcpsocket.Accept(ls.tcpsocket[i+1]);
++				lanlink.tcpsocket.accept(ls.tcpsocket[i+1]);
+ 			if(st == sf::Socket::Error) {
+-				for(int j=1;j<i;j++) ls.tcpsocket[j].Close();
++				for(int j=1;j<i;j++) ls.tcpsocket[j].disconnect();
+ 				systemMessage(0, N_("Network error."));
+ 				lanlink.terminate = true;
+ 			} else {
+ 				i++;
+ 				WRITE16LE(&u16outbuffer[0], i);
+ 				WRITE16LE(&u16outbuffer[1], lanlink.numslaves);
+-				ls.tcpsocket[i].Send(outbuffer, 4);
++				ls.tcpsocket[i].send(outbuffer, 4);
+ 				sid->ShowConnect(i);
+ 			}
+ 		}
+@@ -1251,7 +1251,7 @@
+ 
+ 	for(i=1;i<=lanlink.numslaves;i++){
+ 		outbuffer[0] = 4;
+-		ls.tcpsocket[i].Send(outbuffer, 4);
++		ls.tcpsocket[i].send(outbuffer, 4);
+ 	}
+ 
+ CloseInfoDisplay:
+@@ -1265,9 +1265,9 @@
+ 			outbuffer[0] = 4;
+ 			outbuffer[1] = -32;	//0xe0
+ 			for(i=1;i<=lanlink.numslaves;i++){
+-				tcpsocket[i].Send(outbuffer, 4);
++				tcpsocket[i].send(outbuffer, 4);
+ 				size_t nr;
+-				tcpsocket[i].Receive(inbuffer, 4, nr);
++				tcpsocket[i].receive(inbuffer, 4, nr);
+ 			}
+ 		}
+ 		outbuffer[1] = tspeed;
+@@ -1276,27 +1276,27 @@
+ 		if(lanlink.numslaves==1){
+ 			if(lanlink.type==0){
+ 				outbuffer[0] = 8;
+-				tcpsocket[1].Send(outbuffer, 8);
++				tcpsocket[1].send(outbuffer, 8);
+ 			}
+ 		}
+ 		else if(lanlink.numslaves==2){
+ 			WRITE16LE(&u16outbuffer[4], linkdata[2]);
+ 			if(lanlink.type==0){
+ 				outbuffer[0] = 10;
+-				tcpsocket[1].Send(outbuffer, 10);
++				tcpsocket[1].send(outbuffer, 10);
+ 				WRITE16LE(&u16outbuffer[4], linkdata[1]);
+-				tcpsocket[2].Send(outbuffer, 10);
++				tcpsocket[2].send(outbuffer, 10);
+ 			}
+ 		} else {
+ 			if(lanlink.type==0){
+ 				outbuffer[0] = 12;
+ 				WRITE16LE(&u16outbuffer[4], linkdata[2]);
+ 				WRITE16LE(&u16outbuffer[5], linkdata[3]);
+-				tcpsocket[1].Send(outbuffer, 12);
++				tcpsocket[1].send(outbuffer, 12);
+ 				WRITE16LE(&u16outbuffer[4], linkdata[1]);
+-				tcpsocket[2].Send(outbuffer, 12);
++				tcpsocket[2].send(outbuffer, 12);
+ 				WRITE16LE(&u16outbuffer[5], linkdata[2]);
+-				tcpsocket[3].Send(outbuffer, 12);
++				tcpsocket[3].send(outbuffer, 12);
+ 			}
+ 		}
+ 	}
+@@ -1306,10 +1306,10 @@
+ void lserver::Recv(void){
+ 	int numbytes;
+ 	if(lanlink.type==0){	// TCP
+-		fdset.Clear();
+-		for(i=0;i<lanlink.numslaves;i++) fdset.Add(tcpsocket[i+1]);
++		fdset.clear();
++		for(i=0;i<lanlink.numslaves;i++) fdset.add(tcpsocket[i+1]);
+ 		// was linktimeout/1000 (i.e., drop ms part), but that's wrong
+-		if (fdset.Wait((float)(linktimeout / 1000.)) == 0)
++		if (fdset.wait(sf::seconds((float)(linktimeout / 1000.))) == 0)
+ 		{
+ 			return;
+ 		}
+@@ -1319,7 +1319,7 @@
+ 			inbuffer[0] = 1;
+ 			while(numbytes<howmanytimes*inbuffer[0]) {
+ 				size_t nr;
+-				tcpsocket[i+1].Receive(inbuffer+numbytes, howmanytimes*inbuffer[0]-numbytes, nr);
++				tcpsocket[i+1].receive(inbuffer+numbytes, howmanytimes*inbuffer[0]-numbytes, nr);
+ 				numbytes += nr;
+ 			}
+ 			if(howmanytimes>1) memmove(inbuffer, inbuffer+inbuffer[0]*(howmanytimes-1), inbuffer[0]);
+@@ -1331,10 +1331,10 @@
+ 				outbuffer[0] = 4;
+ 				outbuffer[1] = -32;
+ 				for(i=1;i<lanlink.numslaves;i++){
+-					tcpsocket[i].Send(outbuffer, 12);
++					tcpsocket[i].send(outbuffer, 12);
+ 					size_t nr;
+-					tcpsocket[i].Receive(inbuffer, 256, nr);
+-					tcpsocket[i].Close();
++					tcpsocket[i].receive(inbuffer, 256, nr);
++					tcpsocket[i].disconnect();
+ 				}
+ 				return;
+ 			}
+@@ -1357,10 +1357,10 @@
+ 	return;
+ }
+ 
+-bool lclient::Init(sf::IPAddress addr, ClientInfoDisplay *cid){
++bool lclient::Init(sf::IpAddress addr, ClientInfoDisplay *cid){
+ 	serveraddr = addr;
+ 	serverport = IP_LINK_PORT;
+-	lanlink.tcpsocket.SetBlocking(false);
++	lanlink.tcpsocket.setBlocking(false);
+ 
+ 	if(lanlink.thread!=NULL){
+ 		lanlink.terminate = true;
+@@ -1377,13 +1377,13 @@
+ 
+ void LinkClientThread(void *_cid){
+ 	ClientInfoDisplay *cid = (ClientInfoDisplay *)_cid;
+-	sf::Selector<sf::SocketTCP> fdset;
++	sf::SocketSelector fdset;
+ 	int numbytes;
+ 	char inbuffer[16];
+ 	u16 *u16inbuffer = (u16*)inbuffer;
+ 	unsigned long block = 0;
+ 
+-	while(lanlink.tcpsocket.Connect(lc.serverport, lc.serveraddr) != sf::Socket::Done) {
++	while(lanlink.tcpsocket.connect(lc.serverport, lc.serveraddr) != sf::Socket::Done) {
+ 		// stupid SFML has no way of giving what sort of error occurred
+ 		// so we'll just have to do a retry loop, I guess.
+ 		cid->Ping();
+@@ -1403,14 +1403,14 @@
+ 	numbytes = 0;
+ 	size_t got;
+ 	while(numbytes<4) {
+-		lanlink.tcpsocket.Receive(inbuffer+numbytes, 4 - numbytes, got);
++		lanlink.tcpsocket.receive(inbuffer+numbytes, 4 - numbytes, got);
+ 		numbytes += got;
+-		fdset.Clear();
+-		fdset.Add(lanlink.tcpsocket);
+-		fdset.Wait(0.1);
++		fdset.clear();
++		fdset.add(lanlink.tcpsocket);
++		fdset.wait(sf::seconds(0.1));
+ 		cid->Ping();
+ 		if(lanlink.terminate) {
+-			lanlink.tcpsocket.Close();
++			lanlink.tcpsocket.disconnect();
+ 			goto CloseInfoDisplay;
+ 		}
+ 	}
+@@ -1422,14 +1422,14 @@
+ 	numbytes = 0;
+ 	inbuffer[0] = 1;
+ 	while(numbytes<inbuffer[0]) {
+-		lanlink.tcpsocket.Receive(inbuffer+numbytes, inbuffer[0] - got, got);
++		lanlink.tcpsocket.receive(inbuffer+numbytes, inbuffer[0] - got, got);
+ 		numbytes += got;
+-		fdset.Clear();
+-		fdset.Add(lanlink.tcpsocket);
+-		fdset.Wait(0.1);
++		fdset.clear();
++		fdset.add(lanlink.tcpsocket);
++		fdset.wait(sf::seconds(0.1));
+ 		cid->Ping();
+ 		if(lanlink.terminate) {
+-			lanlink.tcpsocket.Close();
++			lanlink.tcpsocket.disconnect();
+ 			goto CloseInfoDisplay;
+ 		}
+ 	}
+@@ -1445,16 +1445,16 @@
+ 
+ void lclient::CheckConn(void){
+ 	size_t nr;
+-	lanlink.tcpsocket.Receive(inbuffer, 1, nr);
++	lanlink.tcpsocket.receive(inbuffer, 1, nr);
+ 	numbytes = nr;
+ 	if(numbytes>0){
+ 		while(numbytes<inbuffer[0]) {
+-			lanlink.tcpsocket.Receive(inbuffer+numbytes, inbuffer[0] - numbytes, nr);
++			lanlink.tcpsocket.receive(inbuffer+numbytes, inbuffer[0] - numbytes, nr);
+ 			numbytes += nr;
+ 		}
+ 		if(inbuffer[1]==-32){
+ 			outbuffer[0] = 4;
+-			lanlink.tcpsocket.Send(outbuffer, 4);
++			lanlink.tcpsocket.send(outbuffer, 4);
+ 			lanlink.connected = false;
+ 			systemScreenMessage(_("Server disconnected."));
+ 			return;
+@@ -1475,11 +1475,11 @@
+ }
+ 
+ void lclient::Recv(void){
+-	fdset.Clear();
++	fdset.clear();
+ 	// old code used socket # instead of mask again
+-	fdset.Add(lanlink.tcpsocket);
++	fdset.add(lanlink.tcpsocket);
+ 	// old code stripped off ms again
+-	if (fdset.Wait((float)(linktimeout / 1000.)) == 0)
++	if (fdset.wait(sf::seconds((float)(linktimeout / 1000.))) == 0)
+ 	{
+ 		numtransfers = 0;
+ 		return;
+@@ -1488,12 +1488,12 @@
+ 	inbuffer[0] = 1;
+ 	size_t nr;
+ 	while(numbytes<inbuffer[0]) {
+-		lanlink.tcpsocket.Receive(inbuffer+numbytes, inbuffer[0] - numbytes, nr);
++		lanlink.tcpsocket.receive(inbuffer+numbytes, inbuffer[0] - numbytes, nr);
+ 		numbytes += nr;
+ 	}
+ 	if(inbuffer[1]==-32){
+ 		outbuffer[0] = 4;
+-		lanlink.tcpsocket.Send(outbuffer, 4);
++		lanlink.tcpsocket.send(outbuffer, 4);
+ 		lanlink.connected = false;
+ 		systemScreenMessage(_("Server disconnected."));
+ 		return;
+@@ -1515,7 +1515,7 @@
+ 	outbuffer[0] = 4;
+ 	outbuffer[1] = linkid<<2;
+ 	WRITE16LE(&u16outbuffer[1], linkdata[linkid]);
+-	lanlink.tcpsocket.Send(outbuffer, 4);
++	lanlink.tcpsocket.send(outbuffer, 4);
+ 	return;
+ }
+ #endif
+Index: cs2110-vbam/src/gba/GBALink.h
+===================================================================
+--- cs2110-vbam.orig/src/gba/GBALink.h	2014-10-23 10:00:36.687242420 -0400
++++ cs2110-vbam/src/gba/GBALink.h	2014-10-23 10:00:36.679242128 -0400
+@@ -61,7 +61,7 @@
+ class ServerInfoDisplay
+ {
+ public:
+-    virtual void ShowServerIP(const sf::IPAddress& addr) = 0;
++    virtual void ShowServerIP(const sf::IpAddress& addr) = 0;
+     virtual void ShowConnect(const int player) = 0;
+     virtual void Ping() = 0;
+     virtual void Connected() = 0;
+@@ -84,7 +84,7 @@
+ 
+ class lserver{
+ 	int numbytes;
+-	sf::Selector<sf::SocketTCP> fdset;
++	sf::SocketSelector fdset;
+ 	//timeval udptimeout;
+ 	char inbuffer[256], outbuffer[256];
+ 	s32 *intinbuffer;
+@@ -95,8 +95,8 @@
+ 	int done;
+ public:
+ 	int howmanytimes;
+-	sf::SocketTCP tcpsocket[4];
+-	sf::IPAddress udpaddr[4];
++	sf::TcpSocket tcpsocket[4];
++	sf::IpAddress udpaddr[4];
+ 	lserver(void);
+ 	bool Init(ServerInfoDisplay *);
+ 	void Send(void);
+@@ -105,14 +105,14 @@
+ 
+ class ClientInfoDisplay {
+ public:
+-    virtual void ConnectStart(const sf::IPAddress& addr) = 0;
++    virtual void ConnectStart(const sf::IpAddress& addr) = 0;
+     virtual void Ping() = 0;
+     virtual void ShowConnect(const int player, const int togo) = 0;
+     virtual void Connected() = 0;
+ };
+ 
+ class lclient{
+-	sf::Selector<sf::SocketTCP> fdset;
++	sf::SocketSelector fdset;
+ 	char inbuffer[256], outbuffer[256];
+ 	s32 *intinbuffer;
+ 	u16 *u16inbuffer;
+@@ -120,19 +120,19 @@
+ 	u16 *u16outbuffer;
+ 	int numbytes;
+ public:
+-	sf::IPAddress serveraddr;
++	sf::IpAddress serveraddr;
+ 	unsigned short serverport;
+-	sf::SocketTCP noblock;
++	sf::TcpSocket noblock;
+ 	int numtransfers;
+ 	lclient(void);
+-	bool Init(sf::IPAddress, ClientInfoDisplay *);
++	bool Init(sf::IpAddress, ClientInfoDisplay *);
+ 	void Send(void);
+ 	void Recv(void);
+ 	void CheckConn(void);
+ };
+ 
+ typedef struct {
+-	sf::SocketTCP tcpsocket;
++	sf::TcpSocket tcpsocket;
+ 	//sf::SocketUDP udpsocket;
+ 	int numslaves;
+ 	sf::Thread *thread;
+@@ -147,7 +147,7 @@
+ extern bool gba_joybus_enabled;
+ extern bool gba_link_enabled;
+ 
+-extern sf::IPAddress joybusHostAddr;
++extern sf::IpAddress joybusHostAddr;
+ extern void JoyBusConnect();
+ extern void JoyBusShutdown();
+ extern void JoyBusUpdate(int ticks);
+Index: cs2110-vbam/src/gba/GBASockClient.cpp
+===================================================================
+--- cs2110-vbam.orig/src/gba/GBASockClient.cpp	2011-02-20 07:22:58.000000000 -0500
++++ cs2110-vbam/src/gba/GBASockClient.cpp	2014-10-23 10:04:54.444661349 -0400
+@@ -4,20 +4,20 @@
+ 
+ // Currently only for Joybus communications
+ 
+-GBASockClient::GBASockClient(sf::IPAddress _server_addr)
++GBASockClient::GBASockClient(sf::IpAddress _server_addr)
+ {
+ 	if (!_server_addr.IsValid())
+-		server_addr = sf::IPAddress::LocalHost;
++		server_addr = sf::IpAddress::LocalHost;
+ 	else
+ 		server_addr = _server_addr;
+ 
+-	client.Connect(0xd6ba, server_addr);
++	client.connect(0xd6ba, server_addr);
+ 	//client.SetBlocking(false);
+ }
+ 
+ GBASockClient::~GBASockClient()
+ {
+-	client.Close();
++	client.close();
+ }
+ 
+ void GBASockClient::Send(std::vector<char> data)
+@@ -25,7 +25,7 @@
+ 	char* plain_data = new char[data.size()];
+ 	std::copy(data.begin(), data.end(), plain_data);
+ 
+-	client.Send(plain_data, data.size());
++	client.send(plain_data, data.size());
+ 
+ 	delete[] plain_data;
+ }
+@@ -34,7 +34,7 @@
+ char GBASockClient::ReceiveCmd(char* data_in)
+ {
+ 	std::size_t num_received;
+-	client.Receive(data_in, 5, num_received);
++	client.receive(data_in, 5, num_received);
+ 
+ 	return data_in[0];
+ }
+Index: cs2110-vbam/src/gba/GBASockClient.h
+===================================================================
+--- cs2110-vbam.orig/src/gba/GBASockClient.h	2011-02-19 16:33:53.000000000 -0500
++++ cs2110-vbam/src/gba/GBASockClient.h	2014-10-23 10:04:09.087003896 -0400
+@@ -3,16 +3,16 @@
+ #include <SFML/Network.hpp>
+ #include "../common/Types.h"
+ 
+-class GBASockClient : public sf::SocketTCP
++class GBASockClient : public sf::TcpSocket
+ {
+ public:
+-	GBASockClient(sf::IPAddress server_addr);
++	GBASockClient(sf::IpAddress server_addr);
+ 	~GBASockClient();
+ 
+ 	void Send(std::vector<char> data);
+ 	char ReceiveCmd(char* data_in);
+ 
+ private:
+-	sf::IPAddress server_addr;
+-	sf::SocketTCP client;
++	sf::IpAddress server_addr;
++	sf::TcpSocket client;
+ };

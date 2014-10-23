@@ -17,16 +17,17 @@ ifeq ($(DH_VERBOSE),1)
 	EXTRA_CMAKE_FLAGS += -DCMAKE_VERBOSE_MAKEFILE=ON
 endif
 
-ifneq (,$(filter $(DEB_BUILD_ARCH_CPU),i386 amd64))
-	EXTRA_CMAKE_FLAGS += -DUSE_ASM_SCALERS=ON -DUSE_ASM_CORE=ON
-endif
-
 %:
 	dh $@ --buildsystem=cmake --builddirectory=builddir --parallel
 
 override_dh_auto_configure:
 	mkdir -p builddir
-	cd builddir && \
-		cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_C_FLAGS="$(CFLAGS)" \
-			-DCMAKE_LD_FLAGS="-Wl,-z,defs" -DCMAKE_CXX_FLAGS="$(CXXFLAGS)" \
-			-DENABLE_LIRC=ON -DCMAKE_SKIP_RPATH=ON $(EXTRA_CMAKE_FLAGS)
+	cd builddir && cmake .. \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_C_FLAGS="$(CFLAGS)" \
+		-DCMAKE_LD_FLAGS="-Wl,-z,defs" \
+		-DCMAKE_CXX_FLAGS="$(CXXFLAGS)" \
+		-DENABLE_LIRC=ON \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DENABLE_WX=ON \
+		$(EXTRA_CMAKE_FLAGS) 
