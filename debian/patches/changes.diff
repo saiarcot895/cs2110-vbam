@@ -1,6 +1,7 @@
-diff -w -Nur vbam-code-1203-trunk/src/common/ffmpeg.cpp cs2110-vbam/src/common/ffmpeg.cpp
---- vbam-code-1203-trunk/src/common/ffmpeg.cpp	2013-06-17 00:05:37.000000000 -0400
-+++ cs2110-vbam/src/common/ffmpeg.cpp	2014-10-18 07:55:08.386311902 -0400
+Index: cs2110-vbam/src/common/ffmpeg.cpp
+===================================================================
+--- cs2110-vbam.orig/src/common/ffmpeg.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/common/ffmpeg.cpp	2014-10-23 08:01:02.902581030 -0400
 @@ -93,11 +93,7 @@
  	return MRET_OK;
  
@@ -49,9 +50,10 @@ diff -w -Nur vbam-code-1203-trunk/src/common/ffmpeg.cpp cs2110-vbam/src/common/f
  	avformat_free_context(oc);
  	oc = NULL;
  	return MRET_ERR_NOCODEC;
-diff -w -Nur vbam-code-1203-trunk/src/gba/GBA.cpp cs2110-vbam/src/gba/GBA.cpp
---- vbam-code-1203-trunk/src/gba/GBA.cpp	2013-09-16 14:44:46.000000000 -0400
-+++ cs2110-vbam/src/gba/GBA.cpp	2014-10-18 07:55:08.458314563 -0400
+Index: cs2110-vbam/src/gba/GBA.cpp
+===================================================================
+--- cs2110-vbam.orig/src/gba/GBA.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/gba/GBA.cpp	2014-10-23 08:01:02.902581030 -0400
 @@ -42,7 +42,6 @@
  u32 busPrefetchCount = 0;
  int cpuDmaTicksToUpdate = 0;
@@ -134,9 +136,10 @@ diff -w -Nur vbam-code-1203-trunk/src/gba/GBA.cpp cs2110-vbam/src/gba/GBA.cpp
              DISPSTAT &= 0xFFFC;
              UPDATE_REG(0x04, DISPSTAT);
              VCOUNT = 0;
-diff -w -Nur vbam-code-1203-trunk/src/gba/GBAinline.h cs2110-vbam/src/gba/GBAinline.h
---- vbam-code-1203-trunk/src/gba/GBAinline.h	2013-09-14 04:00:19.000000000 -0400
-+++ cs2110-vbam/src/gba/GBAinline.h	2014-10-18 07:55:08.462314711 -0400
+Index: cs2110-vbam/src/gba/GBAinline.h
+===================================================================
+--- cs2110-vbam.orig/src/gba/GBAinline.h	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/gba/GBAinline.h	2014-10-23 08:01:02.902581030 -0400
 @@ -9,6 +9,8 @@
  #include "GBAcpu.h"
  #include "GBALink.h"
@@ -161,18 +164,10 @@ diff -w -Nur vbam-code-1203-trunk/src/gba/GBAinline.h cs2110-vbam/src/gba/GBAinl
 -	if(cpuDmaHack) {
 -		value = cpuDmaLast;
 -	} else {
-       if(armState) {
+     if(armState) {
  		return CPUReadMemoryQuick(reg[15].I);
-       } else {
-@@ -141,7 +139,6 @@
- 			   CPUReadHalfWordQuick(reg[15].I) << 16;
-       }
- 	}
--  }
- 
-   if(oldAddress & 3) {
- #ifdef C_CORE
-@@ -227,10 +224,6 @@
+     } else {
+@@ -226,10 +224,6 @@
                  value = 0xFFFF - ((timer3Ticks-cpuTotalTicks) >> timer3ClockReload);
        }
      }
@@ -183,7 +178,7 @@ diff -w -Nur vbam-code-1203-trunk/src/gba/GBAinline.h cs2110-vbam/src/gba/GBAinl
      else goto unreadable;
      break;
    case 5:
-@@ -272,22 +265,18 @@
+@@ -271,22 +265,18 @@
      // default
    default:
  unreadable:
@@ -202,7 +197,7 @@ diff -w -Nur vbam-code-1203-trunk/src/gba/GBAinline.h cs2110-vbam/src/gba/GBAinl
 -		log("Illegal halfword read: %08x at %08x (%08x)\n", oldAddress, reg[15].I, value);
 +      log("Illegal halfword read: %08x at %08x\n", oldAddress, armMode ?
 +        armNextPC - 4 : armNextPC - 2);
- 	}
+     }
  #endif
 -	return value;
 +	if(armState) {
@@ -214,18 +209,18 @@ diff -w -Nur vbam-code-1203-trunk/src/gba/GBAinline.h cs2110-vbam/src/gba/GBAinl
    }
  
    if(oldAddress & 1) {
-@@ -392,9 +381,6 @@
+@@ -391,9 +381,6 @@
          armNextPC - 4 : armNextPC - 2);
      }
  #endif
 -	if(cpuDmaHack) {
 -		return cpuDmaLast & 0xFF;
 -	} else {
- 		if(armState) {
- 			return CPUReadMemoryQuick(reg[15].I);
- 		} else {
-@@ -403,11 +389,9 @@
- 		}
+ 	if(armState) {
+ 		return CPUReadMemoryQuick(reg[15].I);
+ 	} else {
+@@ -401,11 +388,9 @@
+ 			   CPUReadHalfWordQuick(reg[15].I) << 16;
  	}
    }
 -}
@@ -236,7 +231,7 @@ diff -w -Nur vbam-code-1203-trunk/src/gba/GBAinline.h cs2110-vbam/src/gba/GBAinl
  #ifdef GBA_LOGGING
    if(address & 3) {
      if(systemVerbose & VERBOSE_UNALIGNED_MEMORY) {
-@@ -444,7 +428,12 @@
+@@ -442,7 +427,12 @@
      if(address < 0x4000400) {
        CPUUpdateRegister((address & 0x3FC), value & 0xFFFF);
        CPUUpdateRegister((address & 0x3FC) + 2, (value >> 16));
@@ -250,9 +245,10 @@ diff -w -Nur vbam-code-1203-trunk/src/gba/GBAinline.h cs2110-vbam/src/gba/GBAinl
      break;
    case 0x05:
  #ifdef BKPT_SUPPORT
-diff -w -Nur vbam-code-1203-trunk/src/gba/Globals.h cs2110-vbam/src/gba/Globals.h
---- vbam-code-1203-trunk/src/gba/Globals.h	2011-02-19 16:33:53.000000000 -0500
-+++ cs2110-vbam/src/gba/Globals.h	2014-10-18 07:55:08.462314711 -0400
+Index: cs2110-vbam/src/gba/Globals.h
+===================================================================
+--- cs2110-vbam.orig/src/gba/Globals.h	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/gba/Globals.h	2014-10-23 08:01:02.902581030 -0400
 @@ -15,6 +15,7 @@
  #define VERBOSE_UNDEFINED          256
  #define VERBOSE_AGBPRINT           512
@@ -261,9 +257,10 @@ diff -w -Nur vbam-code-1203-trunk/src/gba/Globals.h cs2110-vbam/src/gba/Globals.
  
  extern reg_pair reg[45];
  extern bool ioReadable[0x400];
-diff -w -Nur vbam-code-1203-trunk/src/gtk/main.cpp cs2110-vbam/src/gtk/main.cpp
---- vbam-code-1203-trunk/src/gtk/main.cpp	2012-01-23 03:49:39.000000000 -0500
-+++ cs2110-vbam/src/gtk/main.cpp	2014-10-18 07:55:08.490315745 -0400
+Index: cs2110-vbam/src/gtk/main.cpp
+===================================================================
+--- cs2110-vbam.orig/src/gtk/main.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/gtk/main.cpp	2014-10-23 08:01:02.902581030 -0400
 @@ -38,7 +38,7 @@
    textdomain("gvbam");
  #endif // ENABLE_NLS
@@ -282,9 +279,10 @@ diff -w -Nur vbam-code-1203-trunk/src/gtk/main.cpp cs2110-vbam/src/gtk/main.cpp
      exit(0);
    }
  
-diff -w -Nur vbam-code-1203-trunk/src/gtk/windowcallbacks.cpp cs2110-vbam/src/gtk/windowcallbacks.cpp
---- vbam-code-1203-trunk/src/gtk/windowcallbacks.cpp	2013-02-03 07:59:48.000000000 -0500
-+++ cs2110-vbam/src/gtk/windowcallbacks.cpp	2014-10-18 07:55:08.502316189 -0400
+Index: cs2110-vbam/src/gtk/windowcallbacks.cpp
+===================================================================
+--- cs2110-vbam.orig/src/gtk/windowcallbacks.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/gtk/windowcallbacks.cpp	2014-10-23 08:01:02.902581030 -0400
 @@ -504,7 +504,7 @@
  
    oAboutDialog.set_transient_for(*this);
@@ -302,9 +300,10 @@ diff -w -Nur vbam-code-1203-trunk/src/gtk/windowcallbacks.cpp cs2110-vbam/src/gt
    list_authors.push_back("kxu");
    list_authors.push_back("Pokemonhacker");
    list_authors.push_back("Spacy51");
-diff -w -Nur vbam-code-1203-trunk/src/gtk/window.cpp cs2110-vbam/src/gtk/window.cpp
---- vbam-code-1203-trunk/src/gtk/window.cpp	2013-02-03 07:59:48.000000000 -0500
-+++ cs2110-vbam/src/gtk/window.cpp	2014-10-18 07:55:08.502316189 -0400
+Index: cs2110-vbam/src/gtk/window.cpp
+===================================================================
+--- cs2110-vbam.orig/src/gtk/window.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/gtk/window.cpp	2014-10-23 08:01:02.902581030 -0400
 @@ -1154,7 +1154,7 @@
  
  void Window::vSetDefaultTitle()
@@ -329,9 +328,10 @@ diff -w -Nur vbam-code-1203-trunk/src/gtk/window.cpp cs2110-vbam/src/gtk/window.
               _iSpeed, systemFrameSkip, m_iFrameCount);
      set_title(csTitle);
    }
-diff -w -Nur vbam-code-1203-trunk/src/gtk/window.h cs2110-vbam/src/gtk/window.h
---- vbam-code-1203-trunk/src/gtk/window.h	2013-02-03 07:59:48.000000000 -0500
-+++ cs2110-vbam/src/gtk/window.h	2014-10-18 07:55:08.502316189 -0400
+Index: cs2110-vbam/src/gtk/window.h
+===================================================================
+--- cs2110-vbam.orig/src/gtk/window.h	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/gtk/window.h	2014-10-23 08:01:02.902581030 -0400
 @@ -32,7 +32,11 @@
  
  #include "configfile.h"
@@ -344,9 +344,10 @@ diff -w -Nur vbam-code-1203-trunk/src/gtk/window.h cs2110-vbam/src/gtk/window.h
  
  namespace VBA
  {
-diff -w -Nur vbam-code-1203-trunk/src/sdl/SDL.cpp cs2110-vbam/src/sdl/SDL.cpp
---- vbam-code-1203-trunk/src/sdl/SDL.cpp	2012-11-19 23:04:57.000000000 -0500
-+++ cs2110-vbam/src/sdl/SDL.cpp	2014-10-18 07:55:08.514316632 -0400
+Index: cs2110-vbam/src/sdl/SDL.cpp
+===================================================================
+--- cs2110-vbam.orig/src/sdl/SDL.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/sdl/SDL.cpp	2014-10-23 08:01:02.914581469 -0400
 @@ -1874,7 +1874,7 @@
  
  int main(int argc, char **argv)
@@ -377,9 +378,10 @@ diff -w -Nur vbam-code-1203-trunk/src/sdl/SDL.cpp cs2110-vbam/src/sdl/SDL.cpp
                systemFrameSkip,
                showRenderedFrames);
  
-diff -w -Nur vbam-code-1203-trunk/src/wx/cmdevents.cpp cs2110-vbam/src/wx/cmdevents.cpp
---- vbam-code-1203-trunk/src/wx/cmdevents.cpp	2011-12-04 10:14:43.000000000 -0500
-+++ cs2110-vbam/src/wx/cmdevents.cpp	2014-10-18 07:55:08.618320474 -0400
+Index: cs2110-vbam/src/wx/cmdevents.cpp
+===================================================================
+--- cs2110-vbam.orig/src/wx/cmdevents.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/wx/cmdevents.cpp	2014-10-23 08:01:02.914581469 -0400
 @@ -2169,7 +2169,7 @@
  EVT_HANDLER(wxID_ABOUT, "About...")
  {
@@ -397,9 +399,10 @@ diff -w -Nur vbam-code-1203-trunk/src/wx/cmdevents.cpp cs2110-vbam/src/wx/cmdeve
      ai.AddDeveloper(wxT("kxu"));
      ai.AddDeveloper(wxT("Pokemonhacker"));
      ai.AddDeveloper(wxT("Spacy51"));
-diff -w -Nur vbam-code-1203-trunk/src/wx/guiinit.cpp cs2110-vbam/src/wx/guiinit.cpp
---- vbam-code-1203-trunk/src/wx/guiinit.cpp	2012-09-02 10:26:22.000000000 -0400
-+++ cs2110-vbam/src/wx/guiinit.cpp	2014-10-18 07:55:08.618320474 -0400
+Index: cs2110-vbam/src/wx/guiinit.cpp
+===================================================================
+--- cs2110-vbam.orig/src/wx/guiinit.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/wx/guiinit.cpp	2014-10-23 08:01:02.914581469 -0400
 @@ -2075,7 +2075,7 @@
      SetIcon(icon);
  
@@ -409,9 +412,10 @@ diff -w -Nur vbam-code-1203-trunk/src/wx/guiinit.cpp cs2110-vbam/src/wx/guiinit.
  
      // Prepare system accel table
      for(int i = 0; i < num_def_accels; i++)
-diff -w -Nur vbam-code-1203-trunk/src/wx/panel.cpp cs2110-vbam/src/wx/panel.cpp
---- vbam-code-1203-trunk/src/wx/panel.cpp	2011-12-04 10:14:43.000000000 -0500
-+++ cs2110-vbam/src/wx/panel.cpp	2014-10-18 07:55:08.622320622 -0400
+Index: cs2110-vbam/src/wx/panel.cpp
+===================================================================
+--- cs2110-vbam.orig/src/wx/panel.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/wx/panel.cpp	2014-10-23 08:01:02.914581469 -0400
 @@ -326,10 +326,10 @@
  {
      wxString tit;
@@ -425,9 +429,10 @@ diff -w -Nur vbam-code-1203-trunk/src/wx/panel.cpp cs2110-vbam/src/wx/panel.cpp
  #ifndef NO_LINK
      if(vbaid > 0 || linkid > 0) {
  	tit.append(_(" player "));
-diff -w -Nur vbam-code-1203-trunk/src/wx/wxvbam.cpp cs2110-vbam/src/wx/wxvbam.cpp
---- vbam-code-1203-trunk/src/wx/wxvbam.cpp	2011-12-04 10:14:43.000000000 -0500
-+++ cs2110-vbam/src/wx/wxvbam.cpp	2014-10-18 07:55:08.630320918 -0400
+Index: cs2110-vbam/src/wx/wxvbam.cpp
+===================================================================
+--- cs2110-vbam.orig/src/wx/wxvbam.cpp	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/wx/wxvbam.cpp	2014-10-23 08:01:02.914581469 -0400
 @@ -221,7 +221,7 @@
  {
      wxApp::OnInitCmdLine(cl);
@@ -448,9 +453,10 @@ diff -w -Nur vbam-code-1203-trunk/src/wx/wxvbam.cpp cs2110-vbam/src/wx/wxvbam.cp
  END_EVENT_TABLE()
  
  void MainFrame::OnActivate(wxActivateEvent &event)
-diff -w -Nur vbam-code-1203-trunk/src/wx/wxvbam.desktop cs2110-vbam/src/wx/wxvbam.desktop
---- vbam-code-1203-trunk/src/wx/wxvbam.desktop	2013-06-17 00:17:12.000000000 -0400
-+++ cs2110-vbam/src/wx/wxvbam.desktop	2014-10-18 07:55:08.630320918 -0400
+Index: cs2110-vbam/src/wx/wxvbam.desktop
+===================================================================
+--- cs2110-vbam.orig/src/wx/wxvbam.desktop	2014-10-23 08:01:02.942582491 -0400
++++ cs2110-vbam/src/wx/wxvbam.desktop	2014-10-23 08:01:02.914581469 -0400
 @@ -1,9 +1,10 @@
  [Desktop Entry]
  Version=1.0
