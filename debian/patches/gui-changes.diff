@@ -1,0 +1,18 @@
+Index: cs2110-vbam/src/wx/wxvbam.xrc
+===================================================================
+--- cs2110-vbam.orig/src/wx/wxvbam.xrc	2012-01-20 17:03:27.000000000 -0500
++++ cs2110-vbam/src/wx/wxvbam.xrc	2014-10-23 08:16:49.321172311 -0400
+@@ -4579,6 +4579,13 @@
+                 <flag>wxALL</flag>
+                 <border>5</border>
+               </object>
++	      <object class="sizeritem">
++                <object class="wxCheckBox" name="GBAMessages">
++                  <label>GBAMessages</label>
++                </object>
++                <flag>wxALL</flag>
++                <border>5</border>
++              </object>
+               <label>Verbose</label>
+               <orient>wxVERTICAL</orient>
+             </object>
