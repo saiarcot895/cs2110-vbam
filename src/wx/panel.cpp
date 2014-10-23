@@ -122,7 +122,7 @@ void GameArea::LoadGame(const wxString &name)
 		gbUpdateSizes();
 	    rom_size = size;
 	}
-
+		   
 	// start sound; this must happen before CPU stuff
 	gb_effects_config.echo = (float)gopts.gb_echo / 100.0;
 	gb_effects_config.stereo = (float)gopts.gb_stereo / 100.0;
@@ -1422,7 +1422,7 @@ void DrawingPanel::DrawOSD(wxWindowDC &dc)
 	    panel->osdtext.clear();
 	    wxGetApp().frame->PopStatusText();
 	}
-    }
+    }	    
     if(!gopts.no_osd_status && !panel->osdtext.empty()) {
 	wxSize asz = dc.GetSize();
 	wxString msg = panel->osdtext;

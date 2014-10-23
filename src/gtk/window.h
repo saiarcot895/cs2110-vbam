@@ -59,7 +59,7 @@ public:
     OutputCairo,
     OutputOpenGL
   };
-
+  
   enum EEmulatorType
   {
     EmulatorAuto,

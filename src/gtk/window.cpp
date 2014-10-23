@@ -159,7 +159,7 @@ Window::Window(GtkWindow * _pstWindow, const Glib::RefPtr<Gtk::Builder> & _poXml
   // Menu bar
   _poXml->get_widget("MenuBar", m_poMenuBar);
   m_poMenuBar->signal_deactivate().connect(sigc::mem_fun(*this, &Window::vOnMenuExit));
-
+  
   _poXml->get_widget("FileMenu", poMI);
   poMI->signal_activate().connect(sigc::mem_fun(*this, &Window::vOnMenuEnter));
   _poXml->get_widget("EmulationMenu", poMI);
@@ -443,7 +443,7 @@ void Window::vInitSystem()
   emulating = 0;
 
   gbFrameSkip = 0;
-
+  
   m_iFrameCount = 0;
 
   soundInit();
@@ -525,7 +525,7 @@ void Window::vInitConfig()
   m_poCoreConfig->vSetKey("emulator_type",     EmulatorAuto );
   m_poCoreConfig->vSetKey("pause_when_inactive", true       );
   m_poCoreConfig->vSetKey("show_speed",        ShowPercentage );
-
+  
   // Display section
   //
   m_poDisplayConfig = m_oConfig.poAddSection("Display");
@@ -882,7 +882,7 @@ void Window::vApplyConfigJoypads()
 void Window::vApplyConfigFrameskip()
 {
   std::string sFrameskip = m_poCoreConfig->oGetKey<std::string>("frameskip");
-
+  
   if (sFrameskip == "auto")
   {
     m_bAutoFrameskip = true;
@@ -922,7 +922,7 @@ void Window::vApplyPerGameConfig()
   oKeyFile.load_from_file(sRDBFile);
 
   if (!oKeyFile.has_group(csGameID))
-    return;
+    return;   
 
   if (oKeyFile.has_key(csGameID, "rtcEnabled"))
   {
@@ -1037,21 +1037,21 @@ bool Window::bLoadROM(const std::string & _rsFile)
     {
       m_eCartridge = CartridgeGB;
       m_stEmulator = GBSystem;
-
+      
       useBios = m_poCoreConfig->oGetKey<bool>("gb_use_bios_file");
       gbGetHardwareType();
-
+      
       if (gbHardware & 5)
       {
         gbCPUInit(m_poCoreConfig->sGetKey("gb_bios_file").c_str(), useBios);
       }
-
+      
       // If the bios file was rejected by gbCPUInit
       if (m_poCoreConfig->oGetKey<bool>("gb_use_bios_file") && ! useBios)
       {
         m_poCoreConfig->vSetKey("gb_bios_file", "");
       }
-
+      
       gbReset();
     }
   }
@@ -1172,7 +1172,7 @@ void Window::vShowSpeed(int _iSpeed)
              _iSpeed, systemFrameSkip, m_iFrameCount);
     set_title(csTitle);
   }
-
+  
   m_iFrameCount = 0;
 }
 
@@ -1544,7 +1544,7 @@ std::string Window::sGetUiFilePath(const std::string &_sFileName)
   {
     sUiFile = PKGDATADIR "/ui/" + _sFileName;
   }
-
+   
   return sUiFile;
 }
 

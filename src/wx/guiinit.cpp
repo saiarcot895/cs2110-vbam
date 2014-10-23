@@ -1715,7 +1715,7 @@ static bool treeid_to_name(int id, wxString &name, wxTreeCtrl *tc,
     }
     return false;
 }
-
+			   
 // for sorting accels by command ID
 static bool cmdid_lt(const wxAcceleratorEntry &a, const wxAcceleratorEntry &b)
 {
