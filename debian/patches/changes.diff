@@ -1,7 +1,7 @@
 Index: cs2110-vbam/src/common/ffmpeg.cpp
 ===================================================================
---- cs2110-vbam.orig/src/common/ffmpeg.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/common/ffmpeg.cpp	2014-10-23 08:01:02.902581030 -0400
+--- cs2110-vbam.orig/src/common/ffmpeg.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/common/ffmpeg.cpp	2014-10-23 08:32:02.106556364 -0400
 @@ -93,11 +93,7 @@
  	return MRET_OK;
  
@@ -52,8 +52,8 @@ Index: cs2110-vbam/src/common/ffmpeg.cpp
  	return MRET_ERR_NOCODEC;
 Index: cs2110-vbam/src/gba/GBA.cpp
 ===================================================================
---- cs2110-vbam.orig/src/gba/GBA.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/gba/GBA.cpp	2014-10-23 08:01:02.902581030 -0400
+--- cs2110-vbam.orig/src/gba/GBA.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/gba/GBA.cpp	2014-10-23 08:32:02.106556364 -0400
 @@ -42,7 +42,6 @@
  u32 busPrefetchCount = 0;
  int cpuDmaTicksToUpdate = 0;
@@ -72,7 +72,7 @@ Index: cs2110-vbam/src/gba/GBA.cpp
  const int TIMER_TICKS[4] = {
    0,
    6,
-@@ -2076,7 +2072,6 @@
+@@ -2217,7 +2213,6 @@
    int dw = 0;
    int sc = c;
  
@@ -80,7 +80,7 @@ Index: cs2110-vbam/src/gba/GBA.cpp
    cpuDmaCount = c;
    // This is done to get the correct waitstates.
    if (sm>15)
-@@ -2145,7 +2140,7 @@
+@@ -2286,7 +2281,7 @@
    }
  
    cpuDmaTicksToUpdate += totalTicks;
@@ -89,7 +89,7 @@ Index: cs2110-vbam/src/gba/GBA.cpp
  }
  
  void CPUCheckDMA(int reason, int dmamask)
-@@ -2381,7 +2376,6 @@
+@@ -2522,7 +2517,6 @@
        doDMA(dma3Source, dma3Dest, sourceIncrement, destIncrement,
              DM3CNT_L ? DM3CNT_L : 0x10000,
              DM3CNT_H & 0x0400);
@@ -97,7 +97,7 @@ Index: cs2110-vbam/src/gba/GBA.cpp
        if(DM3CNT_H & 0x4000) {
          IF |= 0x0800;
          UPDATE_REG(0x202, IF);
-@@ -2428,7 +2422,7 @@
+@@ -2569,7 +2563,7 @@
        windowOn = (layerEnable & 0x6000) ? true : false;
        if(change && !((value & 0x80))) {
          if(!(DISPSTAT & 1)) {
@@ -106,7 +106,7 @@ Index: cs2110-vbam/src/gba/GBA.cpp
            //      VCOUNT = 0;
            //      UPDATE_REG(0x06, VCOUNT);
            DISPSTAT &= 0xFFFC;
-@@ -3406,8 +3400,6 @@
+@@ -3551,8 +3545,6 @@
  
    systemSaveUpdateCounter = SYSTEM_SAVE_NOT_UPDATED;
  
@@ -115,7 +115,7 @@ Index: cs2110-vbam/src/gba/GBA.cpp
    lastTime = systemGetClock();
  
    SWITicks = 0;
-@@ -3481,11 +3473,9 @@
+@@ -3628,11 +3620,9 @@
  
      if(!holdState && !SWITicks) {
        if(armState) {
@@ -127,7 +127,7 @@ Index: cs2110-vbam/src/gba/GBA.cpp
          if (!thumbExecute())
            return;
        }
-@@ -3541,7 +3531,7 @@
+@@ -3688,7 +3678,7 @@
              }
            }
  
@@ -138,8 +138,8 @@ Index: cs2110-vbam/src/gba/GBA.cpp
              VCOUNT = 0;
 Index: cs2110-vbam/src/gba/GBAinline.h
 ===================================================================
---- cs2110-vbam.orig/src/gba/GBAinline.h	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/gba/GBAinline.h	2014-10-23 08:01:02.902581030 -0400
+--- cs2110-vbam.orig/src/gba/GBAinline.h	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/gba/GBAinline.h	2014-10-23 08:32:28.383517852 -0400
 @@ -9,6 +9,8 @@
  #include "GBAcpu.h"
  #include "GBALink.h"
@@ -157,16 +157,16 @@ Index: cs2110-vbam/src/gba/GBAinline.h
  extern u32 cpuDmaLast;
  extern bool timer0On;
  extern int timer0Ticks;
-@@ -131,9 +132,6 @@
+@@ -129,9 +130,6 @@
          armNextPC - 4 : armNextPC - 2);
      }
  #endif
 -	if(cpuDmaHack) {
 -		value = cpuDmaLast;
 -	} else {
-     if(armState) {
+       if(armState) {
  		return CPUReadMemoryQuick(reg[15].I);
-     } else {
+       } else {
 @@ -226,10 +224,6 @@
                  value = 0xFFFF - ((timer3Ticks-cpuTotalTicks) >> timer3ClockReload);
        }
@@ -178,7 +178,7 @@ Index: cs2110-vbam/src/gba/GBAinline.h
      else goto unreadable;
      break;
    case 5:
-@@ -271,22 +265,18 @@
+@@ -269,21 +263,17 @@
      // default
    default:
  unreadable:
@@ -186,10 +186,9 @@ Index: cs2110-vbam/src/gba/GBAinline.h
 -		value = cpuDmaLast & 0xFFFF;
 -	} else {
 -		if(armState) {
--			value = CPUReadMemoryQuick(reg[15].I);
+-			value = CPUReadHalfWordQuick(reg[15].I + (address & 2));
 -		} else {
--			value = CPUReadHalfWordQuick(reg[15].I) |
--				CPUReadHalfWordQuick(reg[15].I) << 16;
+-			value = CPUReadHalfWordQuick(reg[15].I);
 -		}
 -	}
  #ifdef GBA_LOGGING
@@ -197,33 +196,32 @@ Index: cs2110-vbam/src/gba/GBAinline.h
 -		log("Illegal halfword read: %08x at %08x (%08x)\n", oldAddress, reg[15].I, value);
 +      log("Illegal halfword read: %08x at %08x\n", oldAddress, armMode ?
 +        armNextPC - 4 : armNextPC - 2);
-     }
+ 	}
  #endif
 -	return value;
 +	if(armState) {
-+		return CPUReadMemoryQuick(reg[15].I);
++		return CPUReadHalfWordQuick(reg[15].I + (address & 2));
 +	} else {
-+		return CPUReadHalfWordQuick(reg[15].I) |
-+			   CPUReadHalfWordQuick(reg[15].I) << 16;
++		return CPUReadHalfWordQuick(reg[15].I);
 +	}
    }
  
    if(oldAddress & 1) {
-@@ -391,9 +381,6 @@
+@@ -383,21 +373,16 @@
          armNextPC - 4 : armNextPC - 2);
      }
  #endif
 -	if(cpuDmaHack) {
 -		return cpuDmaLast & 0xFF;
 -	} else {
- 	if(armState) {
- 		return CPUReadMemoryQuick(reg[15].I);
- 	} else {
-@@ -401,11 +388,9 @@
- 			   CPUReadHalfWordQuick(reg[15].I) << 16;
- 	}
+ 		if(armState) {
+ 			return CPUReadByteQuick(reg[15].I + (address & 3));
+ 		} else {
+ 			return CPUReadByteQuick(reg[15].I + (address & 1));
+ 		}
+-	}
    }
--}
+ }
  
  static inline void CPUWriteMemory(u32 address, u32 value)
  {
@@ -231,7 +229,7 @@ Index: cs2110-vbam/src/gba/GBAinline.h
  #ifdef GBA_LOGGING
    if(address & 3) {
      if(systemVerbose & VERBOSE_UNALIGNED_MEMORY) {
-@@ -442,7 +427,12 @@
+@@ -434,7 +419,12 @@
      if(address < 0x4000400) {
        CPUUpdateRegister((address & 0x3FC), value & 0xFFFF);
        CPUUpdateRegister((address & 0x3FC) + 2, (value >> 16));
@@ -247,8 +245,8 @@ Index: cs2110-vbam/src/gba/GBAinline.h
  #ifdef BKPT_SUPPORT
 Index: cs2110-vbam/src/gba/Globals.h
 ===================================================================
---- cs2110-vbam.orig/src/gba/Globals.h	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/gba/Globals.h	2014-10-23 08:01:02.902581030 -0400
+--- cs2110-vbam.orig/src/gba/Globals.h	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/gba/Globals.h	2014-10-23 08:32:02.106556364 -0400
 @@ -15,6 +15,7 @@
  #define VERBOSE_UNDEFINED          256
  #define VERBOSE_AGBPRINT           512
@@ -259,8 +257,8 @@ Index: cs2110-vbam/src/gba/Globals.h
  extern bool ioReadable[0x400];
 Index: cs2110-vbam/src/gtk/main.cpp
 ===================================================================
---- cs2110-vbam.orig/src/gtk/main.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/gtk/main.cpp	2014-10-23 08:01:02.902581030 -0400
+--- cs2110-vbam.orig/src/gtk/main.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/gtk/main.cpp	2014-10-23 08:32:02.106556364 -0400
 @@ -38,7 +38,7 @@
    textdomain("gvbam");
  #endif // ENABLE_NLS
@@ -281,8 +279,8 @@ Index: cs2110-vbam/src/gtk/main.cpp
  
 Index: cs2110-vbam/src/gtk/windowcallbacks.cpp
 ===================================================================
---- cs2110-vbam.orig/src/gtk/windowcallbacks.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/gtk/windowcallbacks.cpp	2014-10-23 08:01:02.902581030 -0400
+--- cs2110-vbam.orig/src/gtk/windowcallbacks.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/gtk/windowcallbacks.cpp	2014-10-23 08:32:02.110556510 -0400
 @@ -504,7 +504,7 @@
  
    oAboutDialog.set_transient_for(*this);
@@ -302,8 +300,8 @@ Index: cs2110-vbam/src/gtk/windowcallbacks.cpp
    list_authors.push_back("Spacy51");
 Index: cs2110-vbam/src/gtk/window.cpp
 ===================================================================
---- cs2110-vbam.orig/src/gtk/window.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/gtk/window.cpp	2014-10-23 08:01:02.902581030 -0400
+--- cs2110-vbam.orig/src/gtk/window.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/gtk/window.cpp	2014-10-23 08:32:02.110556510 -0400
 @@ -1154,7 +1154,7 @@
  
  void Window::vSetDefaultTitle()
@@ -330,8 +328,8 @@ Index: cs2110-vbam/src/gtk/window.cpp
    }
 Index: cs2110-vbam/src/gtk/window.h
 ===================================================================
---- cs2110-vbam.orig/src/gtk/window.h	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/gtk/window.h	2014-10-23 08:01:02.902581030 -0400
+--- cs2110-vbam.orig/src/gtk/window.h	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/gtk/window.h	2014-10-23 08:32:02.110556510 -0400
 @@ -32,7 +32,11 @@
  
  #include "configfile.h"
@@ -346,9 +344,9 @@ Index: cs2110-vbam/src/gtk/window.h
  {
 Index: cs2110-vbam/src/sdl/SDL.cpp
 ===================================================================
---- cs2110-vbam.orig/src/sdl/SDL.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/sdl/SDL.cpp	2014-10-23 08:01:02.914581469 -0400
-@@ -1874,7 +1874,7 @@
+--- cs2110-vbam.orig/src/sdl/SDL.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/sdl/SDL.cpp	2014-10-23 08:32:02.110556510 -0400
+@@ -1875,7 +1875,7 @@
  
  int main(int argc, char **argv)
  {
@@ -357,7 +355,7 @@ Index: cs2110-vbam/src/sdl/SDL.cpp
  
    arg0 = argv[0];
  
-@@ -2322,7 +2322,7 @@
+@@ -2323,7 +2323,7 @@
  
    autoFrameSkipLastTime = throttleLastTime = systemGetClock();
  
@@ -366,7 +364,7 @@ Index: cs2110-vbam/src/sdl/SDL.cpp
  
    // now we can enable cheats?
    {
-@@ -2529,9 +2529,9 @@
+@@ -2530,9 +2530,9 @@
    if(!fullscreen && showSpeed) {
      char buffer[80];
      if(showSpeed == 1)
@@ -380,8 +378,8 @@ Index: cs2110-vbam/src/sdl/SDL.cpp
  
 Index: cs2110-vbam/src/wx/cmdevents.cpp
 ===================================================================
---- cs2110-vbam.orig/src/wx/cmdevents.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/wx/cmdevents.cpp	2014-10-23 08:01:02.914581469 -0400
+--- cs2110-vbam.orig/src/wx/cmdevents.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/wx/cmdevents.cpp	2014-10-23 08:32:02.110556510 -0400
 @@ -2169,7 +2169,7 @@
  EVT_HANDLER(wxID_ABOUT, "About...")
  {
@@ -401,8 +399,8 @@ Index: cs2110-vbam/src/wx/cmdevents.cpp
      ai.AddDeveloper(wxT("Spacy51"));
 Index: cs2110-vbam/src/wx/guiinit.cpp
 ===================================================================
---- cs2110-vbam.orig/src/wx/guiinit.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/wx/guiinit.cpp	2014-10-23 08:01:02.914581469 -0400
+--- cs2110-vbam.orig/src/wx/guiinit.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/wx/guiinit.cpp	2014-10-23 08:32:02.110556510 -0400
 @@ -2075,7 +2075,7 @@
      SetIcon(icon);
  
@@ -414,8 +412,8 @@ Index: cs2110-vbam/src/wx/guiinit.cpp
      for(int i = 0; i < num_def_accels; i++)
 Index: cs2110-vbam/src/wx/panel.cpp
 ===================================================================
---- cs2110-vbam.orig/src/wx/panel.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/wx/panel.cpp	2014-10-23 08:01:02.914581469 -0400
+--- cs2110-vbam.orig/src/wx/panel.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/wx/panel.cpp	2014-10-23 08:32:02.110556510 -0400
 @@ -326,10 +326,10 @@
  {
      wxString tit;
@@ -431,8 +429,8 @@ Index: cs2110-vbam/src/wx/panel.cpp
  	tit.append(_(" player "));
 Index: cs2110-vbam/src/wx/wxvbam.cpp
 ===================================================================
---- cs2110-vbam.orig/src/wx/wxvbam.cpp	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/wx/wxvbam.cpp	2014-10-23 08:01:02.914581469 -0400
+--- cs2110-vbam.orig/src/wx/wxvbam.cpp	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/wx/wxvbam.cpp	2014-10-23 08:32:02.110556510 -0400
 @@ -221,7 +221,7 @@
  {
      wxApp::OnInitCmdLine(cl);
@@ -455,8 +453,8 @@ Index: cs2110-vbam/src/wx/wxvbam.cpp
  void MainFrame::OnActivate(wxActivateEvent &event)
 Index: cs2110-vbam/src/wx/wxvbam.desktop
 ===================================================================
---- cs2110-vbam.orig/src/wx/wxvbam.desktop	2014-10-23 08:01:02.942582491 -0400
-+++ cs2110-vbam/src/wx/wxvbam.desktop	2014-10-23 08:01:02.914581469 -0400
+--- cs2110-vbam.orig/src/wx/wxvbam.desktop	2014-10-23 08:32:02.122556949 -0400
++++ cs2110-vbam/src/wx/wxvbam.desktop	2014-10-23 08:32:02.114556657 -0400
 @@ -1,9 +1,10 @@
  [Desktop Entry]
  Version=1.0
