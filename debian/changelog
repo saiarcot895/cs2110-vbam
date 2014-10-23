@@ -1,3 +1,13 @@
+vbam (1.8.0.1229-0ubuntu1~ppa1~trusty1) trusty; urgency=low
+
+  * Create debian package for vbam
+  * debian/patches/changes.diff: Separate CS 2110 changes from main
+    source code
+  * debian/patches/util-fix.patch: Add patch to allow using a function
+    declared in Util.cpp
+
+ -- Saikrishna Arcot <saiarcot895@gmail.com>  Thu, 23 Oct 2014 12:07:44 -0400
+
 vbam (1.8.0.1042-1) lucid; urgency=low
 
   * Use new version from upstream
