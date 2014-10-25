@@ -1,0 +1,42 @@
+Index: cs2110-vbam/src/common/ffmpeg.cpp
+===================================================================
+--- cs2110-vbam.orig/src/common/ffmpeg.cpp	2014-10-24 19:35:49.000000000 -0400
++++ cs2110-vbam/src/common/ffmpeg.cpp	2014-10-24 19:51:26.313698987 -0400
+@@ -93,7 +93,8 @@
+ 	return MRET_OK;
+ 
+     AVCodecContext *ctx;
+-    aud_st = av_new_stream(oc, 1);
++    aud_st = avformat_new_stream(oc, NULL);
++    aud_st->id = 1;
+     if(!aud_st) {
+ 	avformat_free_context(oc);
+ 	oc = NULL;
+@@ -112,7 +113,7 @@
+ 	ctx->flags |= CODEC_FLAG_GLOBAL_HEADER;
+ 
+     AVCodec *codec = avcodec_find_encoder(fmt->audio_codec);
+-    if(!codec || avcodec_open(ctx, codec)) {
++    if(!codec || avcodec_open2(ctx, codec, NULL)) {
+ 	avformat_free_context(oc);
+ 	oc = NULL;
+ 	return MRET_ERR_NOCODEC;
+@@ -124,7 +125,8 @@
+ MediaRet MediaRecorder::setup_video_stream(const char *fname, int w, int h, int d)
+ {
+     AVCodecContext *ctx;
+-    vid_st = av_new_stream(oc, 0);
++    vid_st = avformat_new_stream(oc, NULL);
++    vid_st->id = 0;
+     if(!vid_st) {
+ 	avformat_free_context(oc);
+ 	oc = NULL;
+@@ -203,7 +205,7 @@
+ 	    ctx->pix_fmt = dp;
+ 	}
+     }
+-    if(!codec || avcodec_open(ctx, codec)) {
++    if(!codec || avcodec_open2(ctx, codec, NULL)) {
+ 	avformat_free_context(oc);
+ 	oc = NULL;
+ 	return MRET_ERR_NOCODEC;

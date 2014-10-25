@@ -9,12 +9,15 @@
 # Uncomment this to turn on verbose mode
 #export DH_VERBOSE=1
 
-DEB_BUILD_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH_CPU)
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS) $(CPPFLAGS)
+CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS) $(CPPFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
 
 EXTRA_CMAKE_FLAGS =
 
-ifeq ($(DH_VERBOSE),1)
-	EXTRA_CMAKE_FLAGS += -DCMAKE_VERBOSE_MAKEFILE=ON
+ifneq (,$(filter $(DEB_BUILD_ARCH_CPU),i386 amd64))
+	EXTRA_CMAKE_FLAGS += -DENABLE_ASM_SCALERS=ON
 endif
 
 %:
@@ -25,9 +28,10 @@ override_dh_auto_configure:
 	cd builddir && cmake .. \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_C_FLAGS="$(CFLAGS)" \
-		-DCMAKE_LD_FLAGS="-Wl,-z,defs" \
 		-DCMAKE_CXX_FLAGS="$(CXXFLAGS)" \
+		-DCMAKE_SHARED_LINKER_FLAGS="$(LDFLAGS)" \
+		-DCMAKE_VERBOSE_MAKEFILE=ON \
 		-DENABLE_LIRC=ON \
-		-DCMAKE_SKIP_RPATH=ON \
-		-DENABLE_WX=ON \
-		$(EXTRA_CMAKE_FLAGS) 
+		-DENABLE_FFMPEG=ON \
+		$(EXTRA_CMAKE_FLAGS) \
+		-DENABLE_WX=ON

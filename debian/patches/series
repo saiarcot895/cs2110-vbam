@@ -1,3 +1,4 @@
 changes.diff
 #sfml-2.1-changes.patch
 util-fix.patch
+ffmpeg-changes.patch
